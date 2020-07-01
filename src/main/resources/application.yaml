@@ -1,0 +1,9 @@
+server.port: 8082
+spring:
+  jpa:
+    hibernate.ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/movie-explorer?serverTimezone=UTC
+    username: movie-explorer
+    password: movie-explorer
