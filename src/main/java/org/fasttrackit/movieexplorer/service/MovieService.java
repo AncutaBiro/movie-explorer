@@ -6,7 +6,9 @@ import org.fasttrackit.movieexplorer.persistence.MovieRepository;
 import org.fasttrackit.movieexplorer.transfer.SaveMovieRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.objenesis.SpringObjenesis;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -23,10 +25,10 @@ public class MovieService {
         this.movieRepository = movieRepository;
     }
 
-    public Movie createMovie (SaveMovieRequest request) {
+    public Movie createMovie(SaveMovieRequest request) {
         LOGGER.info("Creating product {}", request);
 
-        Movie movie= new Movie();
+        Movie movie = new Movie();
         movie.setName(request.getName());
         movie.setDescription(request.getDescription());
         movie.setPoster(request.getPoster());
@@ -35,22 +37,34 @@ public class MovieService {
         return movieRepository.save(movie);
     }
 
-    public Movie getMovie (long id) {
-        LOGGER.info ("Retrieving movie {}", id);
+    public Movie getMovie(long id) {
+        LOGGER.info("Retrieving movie {}", id);
 
         Optional<Movie> movieOptional = movieRepository.findById(id);
 
-        if(movieOptional.isPresent()){
+        if (movieOptional.isPresent()) {
             return movieOptional.get();
         } else {
-            throw new ResourceNotFoundException ("Movie " + id + " not found.");
+            throw new ResourceNotFoundException("Movie " + id + " not found.");
         }
 
     }
 
+    public Movie updateMovie(long id, SaveMovieRequest request) {
+        LOGGER.info("Updating movie {} : {}", id, request);
 
+        Movie movie = getMovie(id);
 
+        BeanUtils.copyProperties(request, movie);
 
+        return movieRepository.save(movie);
 
+    }
+
+    public void deleteMovie(long id) {
+        LOGGER.info("Deleting movie {}", id);
+
+        movieRepository.deleteById(id);
+    }
 
 }

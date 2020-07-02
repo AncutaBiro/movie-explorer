@@ -4,6 +4,7 @@ import org.fasttrackit.movieexplorer.domain.Movie;
 import org.fasttrackit.movieexplorer.exception.ResourceNotFoundException;
 import org.fasttrackit.movieexplorer.service.MovieService;
 import org.fasttrackit.movieexplorer.transfer.SaveMovieRequest;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -59,7 +60,7 @@ class MovieServiceIntegrationTests {
     @Test
     void createMovie_whenMissingNameProperty_thenThrowException() {
         SaveMovieRequest request = new SaveMovieRequest();
-        request.setName(" ");
+        request.setName(null);
         request.setDescription("Is the most awarded movie of all times.");
         request.setPoster("TitanicIMG");
         request.setTrailer("TitanicAVI");
@@ -95,16 +96,60 @@ class MovieServiceIntegrationTests {
         }
     }
 
+    @Test
+    void updateMovie_whenValidRequest_thenReturnUpdatedMovie() {
+        Movie movie = createMovie();
 
+        SaveMovieRequest request = new SaveMovieRequest();
+        request.setName(movie.getName() + "Updated");
+        request.setDescription(movie.getDescription() + "Updated");
+        request.setTrailer(movie.getTrailer() + "Updated");
+        request.setPoster(movie.getPoster() + "Updated");
 
+        Movie updatedMovie = movieService.updateMovie(movie.getId(), request);
 
+        assertThat(updatedMovie, notNullValue());
+        assertThat(updatedMovie.getId(), is(movie.getId()));
+        assertThat(updatedMovie.getName(), is(request.getName()));
+        assertThat(updatedMovie.getDescription(), is(request.getDescription()));
+        assertThat(updatedMovie.getTrailer(), is(request.getTrailer()));
+        assertThat(updatedMovie.getPoster(), is(request.getPoster()));
+    }
 
+    @Test
+    void updateMovie_whenNonExistingMovie_thenThrowException() {
+        SaveMovieRequest request = new SaveMovieRequest();
 
+        try {
+            movieService.updateMovie(0, request);
+        } catch (Exception e) {
+            assertThat("Unexpected exception", e instanceof ResourceNotFoundException);
+        }
+    }
 
+    @Test
+    void deleteMovie_whenValidRequest_thenMovieDoesNotExist() {
+        Movie movie =  createMovie();
 
+        movieService.deleteMovie(movie.getId());
 
+        Assertions.assertThrows(ResourceNotFoundException.class,
+                ()-> movieService.getMovie(movie.getId()));
+    }
 
-
+//    @Test
+//    void deleteMovie_whenNonExistingMovie_thenThrowException() {
+//
+//        Assertions.assertThrows(ResourceNotFoundException.class,
+//                ()-> movieService.deleteMovie(-1));
+//
+////        try {
+////            movieService.deleteMovie(0);
+////        } catch (Exception e) {
+////            assertThat("Unexpected exception", e instanceof ResourceNotFoundException);
+////        }
+//
+//    }
 
     private Movie createMovie() {
         SaveMovieRequest request = new SaveMovieRequest();
