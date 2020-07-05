@@ -11,7 +11,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.objenesis.SpringObjenesis;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -58,11 +57,9 @@ public class MovieService {
     public Page<Movie> getMoviesBy(GetMoviesRequest request, Pageable pageable) {
         if (request.getPartialName() != null) {
             return movieRepository.findByNameContaining(request.getPartialName(), pageable);
-        }
-        if (request.getFindGenre() != null) {
+        } else if (request.getFindGenre() != null) {
             return movieRepository.findByGenre(request.getFindGenre(), pageable);
-        }
-        if (request.getFindLeadingRole() != null) {
+        } else if (request.getFindLeadingRole() != null) {
             return movieRepository.findByLeadingRole(request.getFindLeadingRole(), pageable);
         } else {
             return movieRepository.findAll(pageable);

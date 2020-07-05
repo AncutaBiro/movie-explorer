@@ -3,19 +3,24 @@ package org.fasttrackit.movieexplorer;
 import org.fasttrackit.movieexplorer.domain.Movie;
 import org.fasttrackit.movieexplorer.exception.ResourceNotFoundException;
 import org.fasttrackit.movieexplorer.service.MovieService;
+import org.fasttrackit.movieexplorer.transfer.GetMoviesRequest;
 import org.fasttrackit.movieexplorer.transfer.SaveMovieRequest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import javax.validation.ConstraintViolationException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.*;
 
 @SpringBootTest
 class MovieServiceIntegrationTests {
@@ -94,6 +99,24 @@ class MovieServiceIntegrationTests {
         assertThat(response.getLeadingRole(), is(movie.getLeadingRole()));
 
     }
+
+    @Test
+      void getMoviesByCriteria_whenExistingMovie_thenReturnMovieList () {
+
+        Movie movie = createMovie();
+
+        GetMoviesRequest request = new GetMoviesRequest();
+        request.setPartialName("Tit");
+        request.setFindGenre("drama");
+        request.setFindLeadingRole("Leonardo Di Caprio");
+
+        Page<Movie> response = movieService.getMoviesBy(request, Pageable.unpaged());
+
+        assertThat(response, notNullValue());
+//        assertThat(response.get(), is(movie.getName()));
+//        assertThat(response. , is(movie.getGenre()));
+    }
+
 
     @Test
     void getMovie_whenNonExistingMovie_thenThrowException() {
