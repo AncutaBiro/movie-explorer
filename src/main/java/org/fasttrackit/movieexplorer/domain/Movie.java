@@ -21,6 +21,10 @@ public class Movie {
     private String poster;
     private String trailer;
 
+    private String leadingRole;
+    private String genre;
+
+
     public long getId() {
         return id;
     }
@@ -61,6 +65,23 @@ public class Movie {
         this.trailer = trailer;
     }
 
+    public String getLeadingRole() {
+        return leadingRole;
+    }
+
+    public void setLeadingRole(String leadingRole) {
+        this.leadingRole = leadingRole;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+
     @Override
     public String toString() {
         return "Movie{" +
@@ -69,6 +90,8 @@ public class Movie {
                 ", description='" + description + '\'' +
                 ", poster='" + poster + '\'' +
                 ", trailer='" + trailer + '\'' +
+                ", leadingRole='" + leadingRole + '\'' +
+                ", genre='" + genre + '\'' +
                 '}';
     }
 }

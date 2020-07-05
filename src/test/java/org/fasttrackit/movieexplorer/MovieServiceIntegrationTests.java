@@ -30,6 +30,8 @@ class MovieServiceIntegrationTests {
         request.setDescription("Is the most awarded movie of all times.");
         request.setPoster("TitanicIMG");
         request.setTrailer("TitanicAVI");
+        request.setGenre("Drama");
+        request.setLeadingRole("Leonardo Di Caprio");
 
         Movie movie = movieService.createMovie(request);
         assertThat(movie, notNullValue());
@@ -38,6 +40,8 @@ class MovieServiceIntegrationTests {
         assertThat(movie.getDescription(), is(request.getDescription()));
         assertThat(movie.getPoster(), is(request.getPoster()));
         assertThat(movie.getTrailer(), is(request.getTrailer()));
+        assertThat(movie.getGenre(), is(request.getGenre()));
+        assertThat(movie.getLeadingRole(), is(request.getLeadingRole()));
 
 //        function for creating movie to call instead of the code above
 //        createMovie();
@@ -64,6 +68,8 @@ class MovieServiceIntegrationTests {
         request.setDescription("Is the most awarded movie of all times.");
         request.setPoster("TitanicIMG");
         request.setTrailer("TitanicAVI");
+        request.setGenre("Drama");
+        request.setLeadingRole("Leonardo di Caprio");
 
         try {
             movieService.createMovie(request);
@@ -84,6 +90,8 @@ class MovieServiceIntegrationTests {
         assertThat(response.getDescription(), is(movie.getDescription()));
         assertThat(response.getPoster(), is(movie.getPoster()));
         assertThat(response.getTrailer(), is(movie.getTrailer()));
+        assertThat(response.getGenre(), is(movie.getGenre()));
+        assertThat(response.getLeadingRole(), is(movie.getLeadingRole()));
 
     }
 
@@ -105,6 +113,8 @@ class MovieServiceIntegrationTests {
         request.setDescription(movie.getDescription() + "Updated");
         request.setTrailer(movie.getTrailer() + "Updated");
         request.setPoster(movie.getPoster() + "Updated");
+        request.setGenre(movie.getGenre() + "Updated");
+        request.setLeadingRole(movie.getLeadingRole() + "Updated");
 
         Movie updatedMovie = movieService.updateMovie(movie.getId(), request);
 
@@ -114,6 +124,8 @@ class MovieServiceIntegrationTests {
         assertThat(updatedMovie.getDescription(), is(request.getDescription()));
         assertThat(updatedMovie.getTrailer(), is(request.getTrailer()));
         assertThat(updatedMovie.getPoster(), is(request.getPoster()));
+        assertThat(updatedMovie.getGenre(), is(request.getGenre()));
+        assertThat(updatedMovie.getLeadingRole(), is(request.getLeadingRole()));
     }
 
     @Test
@@ -129,27 +141,32 @@ class MovieServiceIntegrationTests {
 
     @Test
     void deleteMovie_whenValidRequest_thenMovieDoesNotExist() {
-        Movie movie =  createMovie();
+        Movie movie = createMovie();
 
         movieService.deleteMovie(movie.getId());
 
         Assertions.assertThrows(ResourceNotFoundException.class,
-                ()-> movieService.getMovie(movie.getId()));
+                () -> movieService.getMovie(movie.getId()));
     }
 
-//    @Test
-//    void deleteMovie_whenNonExistingMovie_thenThrowException() {
-//
-//        Assertions.assertThrows(ResourceNotFoundException.class,
-//                ()-> movieService.deleteMovie(-1));
-//
-////        try {
-////            movieService.deleteMovie(0);
-////        } catch (Exception e) {
-////            assertThat("Unexpected exception", e instanceof ResourceNotFoundException);
-////        }
-//
-//    }
+
+    @Test
+// test failed:
+// org.opentest4j.AssertionFailedError: Unexpected exception type thrown ==>
+// expected: <org.fasttrackit.movieexplorer.exception.ResourceNotFoundException>
+// but was: <org.springframework.dao.EmptyResultDataAccessException>
+    void deleteMovie_whenNonExistingMovie_thenThrowException() {
+
+        Assertions.assertThrows(ResourceNotFoundException.class,
+                () -> movieService.deleteMovie(0));
+
+//        try {
+//            movieService.deleteMovie(0);
+//        } catch (Exception e) {
+//            assertThat("Unexpected exception", e instanceof ResourceNotFoundException);
+//        }
+
+    }
 
     private Movie createMovie() {
         SaveMovieRequest request = new SaveMovieRequest();
@@ -157,6 +174,8 @@ class MovieServiceIntegrationTests {
         request.setDescription("Is the most awarded movie of all times.");
         request.setPoster("TitanicIMG");
         request.setTrailer("TitanicAVI");
+        request.setGenre("Drama");
+        request.setLeadingRole("Leonardo di Caprio");
 
         Movie movie = movieService.createMovie(request);
         assertThat(movie, notNullValue());
@@ -165,6 +184,8 @@ class MovieServiceIntegrationTests {
         assertThat(movie.getDescription(), is(request.getDescription()));
         assertThat(movie.getPoster(), is(request.getPoster()));
         assertThat(movie.getTrailer(), is(request.getTrailer()));
+        assertThat(movie.getGenre(), is(request.getGenre()));
+        assertThat(movie.getLeadingRole(), is(request.getLeadingRole()));
 
         return movie;
     }

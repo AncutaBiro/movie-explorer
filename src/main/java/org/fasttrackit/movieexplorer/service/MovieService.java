@@ -3,11 +3,14 @@ package org.fasttrackit.movieexplorer.service;
 import org.fasttrackit.movieexplorer.domain.Movie;
 import org.fasttrackit.movieexplorer.exception.ResourceNotFoundException;
 import org.fasttrackit.movieexplorer.persistence.MovieRepository;
+import org.fasttrackit.movieexplorer.transfer.GetMoviesRequest;
 import org.fasttrackit.movieexplorer.transfer.SaveMovieRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.objenesis.SpringObjenesis;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +36,8 @@ public class MovieService {
         movie.setDescription(request.getDescription());
         movie.setPoster(request.getPoster());
         movie.setTrailer(request.getTrailer());
+        movie.setGenre(request.getGenre());
+        movie.setLeadingRole(request.getLeadingRole());
 
         return movieRepository.save(movie);
     }
@@ -48,6 +53,20 @@ public class MovieService {
             throw new ResourceNotFoundException("Movie " + id + " not found.");
         }
 
+    }
+
+    public Page<Movie> getMoviesBy(GetMoviesRequest request, Pageable pageable) {
+        if (request.getPartialName() != null) {
+            return movieRepository.findByNameContaining(request.getPartialName(), pageable);
+        }
+        if (request.getFindGenre() != null) {
+            return movieRepository.findByGenre(request.getFindGenre(), pageable);
+        }
+        if (request.getFindLeadingRole() != null) {
+            return movieRepository.findByLeadingRole(request.getFindLeadingRole(), pageable);
+        } else {
+            return movieRepository.findAll(pageable);
+        }
     }
 
     public Movie updateMovie(long id, SaveMovieRequest request) {

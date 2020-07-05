@@ -12,6 +12,9 @@ public class SaveMovieRequest {
     private String poster;
     private String trailer;
 
+    private String leadingRole;
+    private String genre;
+
     public String getName() {
         return name;
     }
@@ -44,6 +47,22 @@ public class SaveMovieRequest {
         this.trailer = trailer;
     }
 
+    public String getLeadingRole() {
+        return leadingRole;
+    }
+
+    public void setLeadingRole(String leadingRole) {
+        this.leadingRole = leadingRole;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
     @Override
     public String toString() {
         return "SaveMovieRequest{" +
@@ -51,6 +70,8 @@ public class SaveMovieRequest {
                 ", description='" + description + '\'' +
                 ", poster='" + poster + '\'' +
                 ", trailer='" + trailer + '\'' +
+                ", leadingRole='" + leadingRole + '\'' +
+                ", genre='" + genre + '\'' +
                 '}';
     }
 }
