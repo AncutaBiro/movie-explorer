@@ -2,12 +2,16 @@ package org.fasttrackit.movieexplorer.web;
 
 import org.fasttrackit.movieexplorer.domain.Movie;
 import org.fasttrackit.movieexplorer.service.MovieService;
+import org.fasttrackit.movieexplorer.transfer.GetMoviesRequest;
 import org.fasttrackit.movieexplorer.transfer.SaveMovieRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.print.attribute.standard.PresentationDirection;
 import javax.validation.Valid;
 
 @CrossOrigin
@@ -35,16 +39,21 @@ public class MovieController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Movie> getMovie (@PathVariable long id) {
+    public ResponseEntity<Movie> getMovie(@PathVariable long id) {
         Movie movie = movieService.getMovie(id);
-        return new ResponseEntity<> (movie, HttpStatus.OK);
+        return new ResponseEntity<>(movie, HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<Movie>> getMoviesBy(@Valid GetMoviesRequest request, Pageable pageable) {
+        Page<Movie> movie = movieService.getMoviesBy(request, pageable);
+        return new ResponseEntity<>(movie, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteMovie (@PathVariable long id) {
+    public ResponseEntity<Void> deleteMovie(@PathVariable long id) {
         movieService.deleteMovie(id);
-        return new ResponseEntity<> (HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
 
 }

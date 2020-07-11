@@ -63,13 +63,13 @@ public class MovieService {
         } else if (request.getFindLeadingRole() != null) {
             return movieRepository.findByLeadingRole(request.getFindLeadingRole(), pageable);
         } else if (request.getFindRate() != null) {
-            return movieRepository.findByRateGreaterThan(request.getFindRate(),pageable);
+            return movieRepository.findByRateGreaterThan(request.getFindRate(), pageable);
         } else {
             return movieRepository.findAll(pageable);
         }
     }
 
-    public Movie updateMovie (long id, SaveMovieRequest request) {
+    public Movie updateMovie(long id, SaveMovieRequest request) {
         LOGGER.info("Updating movie {} : {}", id, request);
 
         Movie movie = getMovie(id);
