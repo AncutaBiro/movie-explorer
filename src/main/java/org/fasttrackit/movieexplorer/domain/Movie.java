@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 @Entity
 public class Movie {
@@ -14,7 +15,7 @@ public class Movie {
     private long id;
 
     @NotNull
-    private String name;
+    private String title;
     @NotNull
     private String description;
     @NotNull
@@ -23,6 +24,9 @@ public class Movie {
 
     private String leadingRole;
     private String genre;
+
+    private BigDecimal rate;
+
 
 
     public long getId() {
@@ -33,12 +37,12 @@ public class Movie {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDescription() {
@@ -81,17 +85,25 @@ public class Movie {
         this.genre = genre;
     }
 
+    public BigDecimal getRate() {
+        return rate;
+    }
+
+    public void setRate(BigDecimal rate) {
+        this.rate = rate;
+    }
 
     @Override
     public String toString() {
         return "Movie{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", poster='" + poster + '\'' +
                 ", trailer='" + trailer + '\'' +
                 ", leadingRole='" + leadingRole + '\'' +
                 ", genre='" + genre + '\'' +
+                ", rate=" + rate +
                 '}';
     }
 }

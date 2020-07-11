@@ -34,5 +34,17 @@ public class MovieController {
         return new ResponseEntity<>(movie, HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Movie> getMovie (@PathVariable long id) {
+        Movie movie = movieService.getMovie(id);
+        return new ResponseEntity<> (movie, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteMovie (@PathVariable long id) {
+        movieService.deleteMovie(id);
+        return new ResponseEntity<> (HttpStatus.NO_CONTENT);
+    }
+
 
 }

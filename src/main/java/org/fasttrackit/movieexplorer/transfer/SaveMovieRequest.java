@@ -1,11 +1,12 @@
 package org.fasttrackit.movieexplorer.transfer;
 
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 public class SaveMovieRequest {
 
     @NotNull
-    private String name;
+    private String title;
     @NotNull
     private String description;
     @NotNull
@@ -15,12 +16,15 @@ public class SaveMovieRequest {
     private String leadingRole;
     private String genre;
 
-    public String getName() {
-        return name;
+    private BigDecimal rate;
+
+
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDescription() {
@@ -63,15 +67,26 @@ public class SaveMovieRequest {
         this.genre = genre;
     }
 
+    public BigDecimal getRate() {
+        return rate;
+    }
+
+    public void setRate(BigDecimal rate) {
+        this.rate = rate;
+    }
+
     @Override
     public String toString() {
         return "SaveMovieRequest{" +
-                "name='" + name + '\'' +
+                "title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", poster='" + poster + '\'' +
                 ", trailer='" + trailer + '\'' +
                 ", leadingRole='" + leadingRole + '\'' +
                 ", genre='" + genre + '\'' +
+                ", rate=" + rate +
                 '}';
     }
 }
+
+

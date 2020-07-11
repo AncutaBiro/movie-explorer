@@ -1,17 +1,20 @@
 package org.fasttrackit.movieexplorer.transfer;
 
+import java.math.BigDecimal;
+
 public class GetMoviesRequest {
 
-    String partialName;
+    String partialTitle;
     String findGenre;
     String findLeadingRole;
+    BigDecimal findRate;
 
-    public String getPartialName() {
-        return partialName;
+    public String getPartialTitle() {
+        return partialTitle;
     }
 
-    public void setPartialName(String partialName) {
-        this.partialName = partialName;
+    public void setPartialTitle(String partialTitle) {
+        this.partialTitle = partialTitle;
     }
 
     public String getFindGenre() {
@@ -30,12 +33,21 @@ public class GetMoviesRequest {
         this.findLeadingRole = findLeadingRole;
     }
 
+    public BigDecimal getFindRate() {
+        return findRate;
+    }
+
+    public void setFindRate(BigDecimal findRate) {
+        this.findRate = findRate;
+    }
+
     @Override
     public String toString() {
         return "GetMoviesRequest{" +
-                "partialName='" + partialName + '\'' +
+                "partialTitle='" + partialTitle + '\'' +
                 ", findGenre='" + findGenre + '\'' +
                 ", findLeadingRole='" + findLeadingRole + '\'' +
+                ", findRate=" + findRate +
                 '}';
     }
 }

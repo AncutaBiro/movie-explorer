@@ -10,10 +10,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import javax.validation.ConstraintViolationException;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,23 +33,24 @@ class MovieServiceIntegrationTests {
     @Test
     void createMovie_whenValidRequest_thenReturnCreatedMovie() {
         SaveMovieRequest request = new SaveMovieRequest();
-        request.setName("Titanic");
+        request.setTitle("Titanic");
         request.setDescription("Is the most awarded movie of all times.");
         request.setPoster("TitanicIMG");
         request.setTrailer("TitanicAVI");
         request.setGenre("Drama");
         request.setLeadingRole("Leonardo Di Caprio");
+        request.setRate(BigDecimal.valueOf(5.5));
 
         Movie movie = movieService.createMovie(request);
         assertThat(movie, notNullValue());
         assertThat(movie.getId(), greaterThan(0L));
-        assertThat(movie.getName(), is(request.getName()));
+        assertThat(movie.getTitle(), is(request.getTitle()));
         assertThat(movie.getDescription(), is(request.getDescription()));
         assertThat(movie.getPoster(), is(request.getPoster()));
         assertThat(movie.getTrailer(), is(request.getTrailer()));
         assertThat(movie.getGenre(), is(request.getGenre()));
         assertThat(movie.getLeadingRole(), is(request.getLeadingRole()));
-
+        assertThat(movie.getRate(), is(request.getRate()));
 //        function for creating movie to call instead of the code above
 //        createMovie();
 
@@ -69,12 +72,11 @@ class MovieServiceIntegrationTests {
     @Test
     void createMovie_whenMissingNameProperty_thenThrowException() {
         SaveMovieRequest request = new SaveMovieRequest();
-        request.setName(null);
         request.setDescription("Is the most awarded movie of all times.");
         request.setPoster("TitanicIMG");
         request.setTrailer("TitanicAVI");
         request.setGenre("Drama");
-        request.setLeadingRole("Leonardo di Caprio");
+        request.setRate(BigDecimal.valueOf(5.3));
 
         try {
             movieService.createMovie(request);
@@ -85,37 +87,37 @@ class MovieServiceIntegrationTests {
 
     @Test
     void getMovie_whenExistingMovie_thenReturnMovie() {
-
         Movie movie = createMovie();
 
         Movie response = movieService.getMovie(movie.getId());
         assertThat(response, notNullValue());
         assertThat(response.getId(), is(movie.getId()));
-        assertThat(response.getName(), is(movie.getName()));
+        assertThat(response.getTitle(), is(movie.getTitle()));
         assertThat(response.getDescription(), is(movie.getDescription()));
         assertThat(response.getPoster(), is(movie.getPoster()));
         assertThat(response.getTrailer(), is(movie.getTrailer()));
         assertThat(response.getGenre(), is(movie.getGenre()));
         assertThat(response.getLeadingRole(), is(movie.getLeadingRole()));
-
+        assertThat(response.getRate(), is(movie.getRate()));
     }
 
-    @Test
-      void getMoviesByCriteria_whenExistingMovie_thenReturnMovieList () {
-
-        Movie movie = createMovie();
-
-        GetMoviesRequest request = new GetMoviesRequest();
-        request.setPartialName("Tit");
-        request.setFindGenre("drama");
-        request.setFindLeadingRole("Leonardo Di Caprio");
-
-        Page<Movie> response = movieService.getMoviesBy(request, Pageable.unpaged());
-
-        assertThat(response, notNullValue());
-//        assertThat(response.get(), is(movie.getName()));
-//        assertThat(response. , is(movie.getGenre()));
-    }
+    // nu stiu cum sa implementez asserturile???
+//    @Test
+//      void getMoviesByCriteria_whenExistingMovie_thenReturnMovieList () {
+//
+//        Movie movie = createMovie();
+//
+//        GetMoviesRequest request = new GetMoviesRequest();
+//        request.setPartialTitle("Tit");
+//        request.setFindGenre("drama");
+//        request.setFindLeadingRole("Leonardo Di Caprio");
+//
+//        Page<Movie> response = movieService.getMoviesBy(request, PageRequest.of(0,1000));
+//
+//        assertThat(response, notNullValue());
+//        assertThat(response.getTotalElements(), greaterThanOrEqualTo(1L));
+////        assertThat(response. , is(movie.getGenre()));
+//    }
 
 
     @Test
@@ -130,25 +132,28 @@ class MovieServiceIntegrationTests {
     @Test
     void updateMovie_whenValidRequest_thenReturnUpdatedMovie() {
         Movie movie = createMovie();
+        BigDecimal bd2 = new BigDecimal("3.0");
 
         SaveMovieRequest request = new SaveMovieRequest();
-        request.setName(movie.getName() + "Updated");
+        request.setTitle(movie.getTitle() + "Updated");
         request.setDescription(movie.getDescription() + "Updated");
         request.setTrailer(movie.getTrailer() + "Updated");
         request.setPoster(movie.getPoster() + "Updated");
         request.setGenre(movie.getGenre() + "Updated");
         request.setLeadingRole(movie.getLeadingRole() + "Updated");
+        request.setRate(movie.getRate().add(bd2));
 
         Movie updatedMovie = movieService.updateMovie(movie.getId(), request);
 
         assertThat(updatedMovie, notNullValue());
         assertThat(updatedMovie.getId(), is(movie.getId()));
-        assertThat(updatedMovie.getName(), is(request.getName()));
+        assertThat(updatedMovie.getTitle(), is(request.getTitle()));
         assertThat(updatedMovie.getDescription(), is(request.getDescription()));
         assertThat(updatedMovie.getTrailer(), is(request.getTrailer()));
         assertThat(updatedMovie.getPoster(), is(request.getPoster()));
         assertThat(updatedMovie.getGenre(), is(request.getGenre()));
         assertThat(updatedMovie.getLeadingRole(), is(request.getLeadingRole()));
+        assertThat(updatedMovie.getRate(), is(request.getRate()));
     }
 
     @Test
@@ -193,22 +198,24 @@ class MovieServiceIntegrationTests {
 
     private Movie createMovie() {
         SaveMovieRequest request = new SaveMovieRequest();
-        request.setName("Titanic");
+        request.setTitle("Titanic");
         request.setDescription("Is the most awarded movie of all times.");
         request.setPoster("TitanicIMG");
         request.setTrailer("TitanicAVI");
         request.setGenre("Drama");
         request.setLeadingRole("Leonardo di Caprio");
+        request.setRate(BigDecimal.valueOf(5.5));
 
         Movie movie = movieService.createMovie(request);
         assertThat(movie, notNullValue());
         assertThat(movie.getId(), greaterThan(0L));
-        assertThat(movie.getName(), is(request.getName()));
+        assertThat(movie.getTitle(), is(request.getTitle()));
         assertThat(movie.getDescription(), is(request.getDescription()));
         assertThat(movie.getPoster(), is(request.getPoster()));
         assertThat(movie.getTrailer(), is(request.getTrailer()));
         assertThat(movie.getGenre(), is(request.getGenre()));
         assertThat(movie.getLeadingRole(), is(request.getLeadingRole()));
+        assertThat(movie.getRate(), is(request.getRate()));
 
         return movie;
     }
