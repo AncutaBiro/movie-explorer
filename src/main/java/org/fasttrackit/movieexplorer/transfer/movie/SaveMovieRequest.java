@@ -1,4 +1,4 @@
-package org.fasttrackit.movieexplorer.transfer;
+package org.fasttrackit.movieexplorer.transfer.movie;
 
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;

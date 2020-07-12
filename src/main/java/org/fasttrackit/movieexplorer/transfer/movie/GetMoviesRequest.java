@@ -1,4 +1,4 @@
-package org.fasttrackit.movieexplorer.transfer;
+package org.fasttrackit.movieexplorer.transfer.movie;
 
 import java.math.BigDecimal;
 

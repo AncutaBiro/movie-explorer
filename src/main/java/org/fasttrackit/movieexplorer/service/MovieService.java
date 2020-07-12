@@ -3,8 +3,8 @@ package org.fasttrackit.movieexplorer.service;
 import org.fasttrackit.movieexplorer.domain.Movie;
 import org.fasttrackit.movieexplorer.exception.ResourceNotFoundException;
 import org.fasttrackit.movieexplorer.persistence.MovieRepository;
-import org.fasttrackit.movieexplorer.transfer.GetMoviesRequest;
-import org.fasttrackit.movieexplorer.transfer.SaveMovieRequest;
+import org.fasttrackit.movieexplorer.transfer.movie.GetMoviesRequest;
+import org.fasttrackit.movieexplorer.transfer.movie.SaveMovieRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -63,10 +63,12 @@ public class MovieService {
         } else if (request.getFindLeadingRole() != null) {
             return movieRepository.findByLeadingRole(request.getFindLeadingRole(), pageable);
         } else if (request.getFindRate() != null) {
-            return movieRepository.findByRateGreaterThan(request.getFindRate(), pageable);
+            return movieRepository.findByRateGreaterThanEqual(request.getFindRate(), pageable);
         } else {
             return movieRepository.findAll(pageable);
         }
+
+//        return movieRepository.findByOptionalCriteria(request.getPartialTitle(), request.getFindRate(), pageable);
     }
 
     public Movie updateMovie(long id, SaveMovieRequest request) {

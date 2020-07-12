@@ -3,21 +3,15 @@ package org.fasttrackit.movieexplorer;
 import org.fasttrackit.movieexplorer.domain.Movie;
 import org.fasttrackit.movieexplorer.exception.ResourceNotFoundException;
 import org.fasttrackit.movieexplorer.service.MovieService;
-import org.fasttrackit.movieexplorer.transfer.GetMoviesRequest;
-import org.fasttrackit.movieexplorer.transfer.SaveMovieRequest;
+import org.fasttrackit.movieexplorer.transfer.movie.SaveMovieRequest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 
 import javax.validation.ConstraintViolationException;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
