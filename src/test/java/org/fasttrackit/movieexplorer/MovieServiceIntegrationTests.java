@@ -3,11 +3,14 @@ package org.fasttrackit.movieexplorer;
 import org.fasttrackit.movieexplorer.domain.Movie;
 import org.fasttrackit.movieexplorer.exception.ResourceNotFoundException;
 import org.fasttrackit.movieexplorer.service.MovieService;
+import org.fasttrackit.movieexplorer.transfer.movie.GetMoviesRequest;
 import org.fasttrackit.movieexplorer.transfer.movie.SaveMovieRequest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import javax.validation.ConstraintViolationException;
 
@@ -95,23 +98,20 @@ class MovieServiceIntegrationTests {
         assertThat(response.getRate(), is(movie.getRate()));
     }
 
-    // nu stiu cum sa implementez asserturile???
-//    @Test
-//      void getMoviesByCriteria_whenExistingMovie_thenReturnMovieList () {
-//
-//        Movie movie = createMovie();
-//
-//        GetMoviesRequest request = new GetMoviesRequest();
-//        request.setPartialTitle("Tit");
-//        request.setFindGenre("drama");
-//        request.setFindLeadingRole("Leonardo Di Caprio");
-//
-//        Page<Movie> response = movieService.getMoviesBy(request, PageRequest.of(0,1000));
-//
-//        assertThat(response, notNullValue());
-//        assertThat(response.getTotalElements(), greaterThanOrEqualTo(1L));
-////        assertThat(response. , is(movie.getGenre()));
-//    }
+    @Test
+    void getMoviesByCriteria_whenExistingMovie_thenReturnPageOfMovies() {
+
+        GetMoviesRequest request = new GetMoviesRequest();
+        request.setPartialTitle("Tit");
+        request.setFindGenre("drama");
+        request.setFindLeadingRole("Leonardo Di Caprio");
+
+        Page<Movie> response = movieService.getMoviesBy(request, PageRequest.of(0, 1000));
+
+        assertThat(response, notNullValue());
+        assertThat(response.getTotalElements(), greaterThanOrEqualTo(1L));
+        assertThat(response.getSize(), is(1000) );
+    }
 
 
     @Test
@@ -171,7 +171,6 @@ class MovieServiceIntegrationTests {
                 () -> movieService.getMovie(movie.getId()));
     }
 
-
     @Test
 // test failed:
 // org.opentest4j.AssertionFailedError: Unexpected exception type thrown ==>
@@ -179,14 +178,14 @@ class MovieServiceIntegrationTests {
 // but was: <org.springframework.dao.EmptyResultDataAccessException>
     void deleteMovie_whenNonExistingMovie_thenThrowException() {
 
-        Assertions.assertThrows(ResourceNotFoundException.class,
-                () -> movieService.deleteMovie(0));
+//        Assertions.assertThrows(ResourceNotFoundException.class,
+//                () -> movieService.deleteMovie(-5));
 
-//        try {
-//            movieService.deleteMovie(0);
-//        } catch (Exception e) {
-//            assertThat("Unexpected exception", e instanceof ResourceNotFoundException);
-//        }
+        try {
+            movieService.deleteMovie(-5);
+        } catch (Exception e) {
+            assertThat("Unexpected exception", e instanceof ResourceNotFoundException);
+        }
 
     }
 

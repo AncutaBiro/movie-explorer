@@ -45,14 +45,15 @@ public class MovieService {
     public Movie getMovie(long id) {
         LOGGER.info("Retrieving movie {}", id);
 
-        Optional<Movie> movieOptional = movieRepository.findById(id);
+//        Optional<Movie> movieOptional = movieRepository.findById(id);
+//        if (movieOptional.isPresent()) {
+//            return movieOptional.get();
+//        } else {
+//            throw new ResourceNotFoundException("Movie " + id + " not found.");
+//        }
 
-        if (movieOptional.isPresent()) {
-            return movieOptional.get();
-        } else {
-            throw new ResourceNotFoundException("Movie " + id + " not found.");
-        }
-
+        return movieRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Movie " + id + " not found."));
     }
 
     public Page<Movie> getMoviesBy(GetMoviesRequest request, Pageable pageable) {
