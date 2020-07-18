@@ -3,6 +3,7 @@ package org.fasttrackit.movieexplorer;
 import org.fasttrackit.movieexplorer.domain.Movie;
 import org.fasttrackit.movieexplorer.exception.ResourceNotFoundException;
 import org.fasttrackit.movieexplorer.service.MovieService;
+import org.fasttrackit.movieexplorer.steps.MovieTestSteps;
 import org.fasttrackit.movieexplorer.transfer.movie.GetMoviesRequest;
 import org.fasttrackit.movieexplorer.transfer.movie.SaveMovieRequest;
 import org.junit.jupiter.api.Assertions;
@@ -26,6 +27,9 @@ class MovieServiceIntegrationTests {
 
     @Autowired
     private MovieService movieService;
+
+    @Autowired
+    private MovieTestSteps movieTestSteps;
 
     @Test
     void createMovie_whenValidRequest_thenReturnCreatedMovie() {
@@ -84,7 +88,7 @@ class MovieServiceIntegrationTests {
 
     @Test
     void getMovie_whenExistingMovie_thenReturnMovie() {
-        Movie movie = createMovie();
+        Movie movie = movieTestSteps.createMovie();
 
         Movie response = movieService.getMovie(movie.getId());
         assertThat(response, notNullValue());
@@ -125,7 +129,7 @@ class MovieServiceIntegrationTests {
 
     @Test
     void updateMovie_whenValidRequest_thenReturnUpdatedMovie() {
-        Movie movie = createMovie();
+        Movie movie = movieTestSteps.createMovie();
         BigDecimal bd2 = new BigDecimal("3.0");
 
         SaveMovieRequest request = new SaveMovieRequest();
@@ -163,7 +167,7 @@ class MovieServiceIntegrationTests {
 
     @Test
     void deleteMovie_whenValidRequest_thenMovieDoesNotExist() {
-        Movie movie = createMovie();
+        Movie movie = movieTestSteps.createMovie();
 
         movieService.deleteMovie(movie.getId());
 
@@ -187,30 +191,6 @@ class MovieServiceIntegrationTests {
             assertThat("Unexpected exception", e instanceof ResourceNotFoundException);
         }
 
-    }
-
-    private Movie createMovie() {
-        SaveMovieRequest request = new SaveMovieRequest();
-        request.setTitle("Titanic");
-        request.setDescription("Is the most awarded movie of all times.");
-        request.setPoster("TitanicIMG");
-        request.setTrailer("TitanicAVI");
-        request.setGenre("Drama");
-        request.setLeadingRole("Leonardo di Caprio");
-        request.setRate(BigDecimal.valueOf(5.5));
-
-        Movie movie = movieService.createMovie(request);
-        assertThat(movie, notNullValue());
-        assertThat(movie.getId(), greaterThan(0L));
-        assertThat(movie.getTitle(), is(request.getTitle()));
-        assertThat(movie.getDescription(), is(request.getDescription()));
-        assertThat(movie.getPoster(), is(request.getPoster()));
-        assertThat(movie.getTrailer(), is(request.getTrailer()));
-        assertThat(movie.getGenre(), is(request.getGenre()));
-        assertThat(movie.getLeadingRole(), is(request.getLeadingRole()));
-        assertThat(movie.getRate(), is(request.getRate()));
-
-        return movie;
     }
 
 }

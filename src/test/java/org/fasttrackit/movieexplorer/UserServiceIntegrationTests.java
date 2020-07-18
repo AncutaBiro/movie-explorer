@@ -3,6 +3,7 @@ package org.fasttrackit.movieexplorer;
 import org.fasttrackit.movieexplorer.domain.User;
 import org.fasttrackit.movieexplorer.exception.ResourceNotFoundException;
 import org.fasttrackit.movieexplorer.service.UserService;
+import org.fasttrackit.movieexplorer.steps.UserTestSteps;
 import org.fasttrackit.movieexplorer.transfer.user.SaveUserRequest;
 import org.fasttrackit.movieexplorer.domain.User;
 import org.fasttrackit.movieexplorer.transfer.user.SaveUserRequest;
@@ -24,9 +25,12 @@ public class UserServiceIntegrationTests {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private UserTestSteps userTestSteps;
+
     @Test
     void createUser_whenValidRequest_thenReturnCreatedUser() {
-        createUser();
+        userTestSteps.createUser();
     }
 
     @Test
@@ -42,7 +46,7 @@ public class UserServiceIntegrationTests {
 
     @Test
     void getUser_whenExistingUser_thenDisplayUser() {
-        User user = createUser();
+        User user = userTestSteps.createUser();;
 
         User response = userService.getUser(user.getId());
 
@@ -61,20 +65,4 @@ public class UserServiceIntegrationTests {
         }
     }
 
-    private User createUser() {
-        SaveUserRequest request = new SaveUserRequest();
-        request.setFirstName("Tom");
-        request.setLastName("Dom");
-        request.setEmail("t.d@yahoo.com");
-
-        User user = userService.createUser (request);
-
-        assertThat(user, notNullValue());
-        assertThat(user.getId(), greaterThan(0L));
-        assertThat(user.getFirstName(), is(request.getFirstName()));
-        assertThat(user.getLastName(), is(request.getLastName()));
-        assertThat(user.getEmail(), is(request.getEmail()));
-
-        return user;
-    }
 }
