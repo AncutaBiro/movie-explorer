@@ -1,11 +1,11 @@
 package org.fasttrackit.movieexplorer.domain;
 
-import javax.persistence.FetchType;
-import javax.persistence.MapsId;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
+@Entity
 public class WishList {
 
+    @Id
     private long id;
 
     @OneToOne(fetch = FetchType.LAZY)
