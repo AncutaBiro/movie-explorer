@@ -5,6 +5,7 @@ import org.fasttrackit.movieexplorer.domain.Category;
 import org.fasttrackit.movieexplorer.exception.ResourceNotFoundException;
 import org.fasttrackit.movieexplorer.persistence.CategoryRepository;
 import org.fasttrackit.movieexplorer.transfer.category.SaveCategoryRequest;
+import org.fasttrackit.movieexplorer.transfer.category.SortMovieToCategory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,15 @@ public class CategoryService {
         this.objectMapper = objectMapper;
         this.categoryRepository = categoryRepository;
     }
+
+
+    public void sortMovieToCategory (long categoryId, SortMovieToCategory request) {
+        LOGGER.info("Sorting movie to category");
+
+    }
+
+
+
 
     public Category createCategory (SaveCategoryRequest request)  {
         LOGGER.info ("Creating category {}", request);
