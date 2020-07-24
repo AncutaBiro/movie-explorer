@@ -1,10 +1,9 @@
 package org.fasttrackit.movieexplorer.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Category {
@@ -14,6 +13,24 @@ public class Category {
     private long id;
     @NotNull
     private String genre;
+
+//    @ManyToMany(cascade = CascadeType.MERGE)
+//    @JoinTable(name = "category_movie",
+//            joinColumns = @JoinColumn(name = "cart_id"),
+//            inverseJoinColumns = @JoinColumn(name = "product_id"))
+//    private Set<Product> products = new HashSet<>();
+//
+//    public void addProduct (Product product) {
+//        products.add(product);
+//
+//        product.getCarts().add(this);
+//    }
+//
+//    public void removeProduct (Product product) {
+//        products.remove(product);
+//
+//        product.getCarts().remove(this);
+//    }
 
     public long getId() {
         return id;
@@ -30,6 +47,9 @@ public class Category {
     public void setGenre(String genre) {
         this.genre = genre;
     }
+
+
+
 
     @Override
     public String toString() {

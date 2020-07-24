@@ -1,11 +1,10 @@
 package org.fasttrackit.movieexplorer.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Movie {
@@ -21,26 +20,20 @@ public class Movie {
     @NotNull
     private String poster;
     private String trailer;
+    private BigDecimal averageRate;
 
-    private String leadingRole;
-    private String genre;
-
-    private BigDecimal rate;
-
-
+//    @ManyToMany(mappedBy = "products")
+//
 
     public long getId() {
-        return id;
-    }
+        return id; }
 
     public void setId(long id) {
         this.id = id;
     }
 
     public String getTitle() {
-        return title;
-
-    }
+        return title; }
 
     public void setTitle(String title) {
         this.title = title;
@@ -70,29 +63,14 @@ public class Movie {
         this.trailer = trailer;
     }
 
-    public String getLeadingRole() {
-        return leadingRole;
+    public BigDecimal getAverageRate() {
+        return averageRate;
     }
 
-    public void setLeadingRole(String leadingRole) {
-        this.leadingRole = leadingRole;
+    public void setAverageRate(BigDecimal averageRate) {
+        this.averageRate = averageRate;
     }
 
-    public String getGenre() {
-        return genre;
-    }
-
-    public void setGenre(String genre) {
-        this.genre = genre;
-    }
-
-    public BigDecimal getRate() {
-        return rate;
-    }
-
-    public void setRate(BigDecimal rate) {
-        this.rate = rate;
-    }
 
     @Override
     public String toString() {
@@ -102,9 +80,7 @@ public class Movie {
                 ", description='" + description + '\'' +
                 ", poster='" + poster + '\'' +
                 ", trailer='" + trailer + '\'' +
-                ", leadingRole='" + leadingRole + '\'' +
-                ", genre='" + genre + '\'' +
-                ", rate=" + rate +
+                ", averageRate=" + averageRate +
                 '}';
     }
 

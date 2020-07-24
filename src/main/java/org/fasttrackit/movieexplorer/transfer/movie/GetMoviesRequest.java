@@ -5,9 +5,8 @@ import java.math.BigDecimal;
 public class GetMoviesRequest {
 
     String partialTitle;
-    String findGenre;
-    String findLeadingRole;
-    BigDecimal findRate;
+    BigDecimal findAverageRate;
+    String partialDescription;
 
     public String getPartialTitle() {
         return partialTitle;
@@ -17,37 +16,28 @@ public class GetMoviesRequest {
         this.partialTitle = partialTitle;
     }
 
-    public String getFindGenre() {
-        return findGenre;
+    public BigDecimal getFindAverageRate() {
+        return findAverageRate;
     }
 
-    public void setFindGenre(String findGenre) {
-        this.findGenre = findGenre;
+    public void setFindAverageRate(BigDecimal findAverageRate) {
+        this.findAverageRate = findAverageRate;
     }
 
-    public String getFindLeadingRole() {
-        return findLeadingRole;
+    public String getPartialDescription() {
+        return partialDescription;
     }
 
-    public void setFindLeadingRole(String findLeadingRole) {
-        this.findLeadingRole = findLeadingRole;
-    }
-
-    public BigDecimal getFindRate() {
-        return findRate;
-    }
-
-    public void setFindRate(BigDecimal findRate) {
-        this.findRate = findRate;
+    public void setPartialDescription(String partialDescription) {
+        this.partialDescription = partialDescription;
     }
 
     @Override
     public String toString() {
         return "GetMoviesRequest{" +
                 "partialTitle='" + partialTitle + '\'' +
-                ", findGenre='" + findGenre + '\'' +
-                ", findLeadingRole='" + findLeadingRole + '\'' +
-                ", findRate=" + findRate +
+                ", findAverageRate=" + findAverageRate +
+                ", partialDescription='" + partialDescription + '\'' +
                 '}';
     }
 }

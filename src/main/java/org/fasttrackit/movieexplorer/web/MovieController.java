@@ -3,6 +3,7 @@ package org.fasttrackit.movieexplorer.web;
 import org.fasttrackit.movieexplorer.domain.Movie;
 import org.fasttrackit.movieexplorer.service.MovieService;
 import org.fasttrackit.movieexplorer.transfer.movie.GetMoviesRequest;
+import org.fasttrackit.movieexplorer.transfer.movie.MovieResponse;
 import org.fasttrackit.movieexplorer.transfer.movie.SaveMovieRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,26 +27,26 @@ public class MovieController {
     }
 
     @PostMapping
-    public ResponseEntity<Movie> createMovie(@Valid @RequestBody SaveMovieRequest request) {
-        Movie movie = movieService.createMovie(request);
+    public ResponseEntity<MovieResponse> createMovie(@Valid @RequestBody SaveMovieRequest request) {
+        MovieResponse movie = movieService.createMovie(request);
         return new ResponseEntity<>(movie, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Movie> updateMovie(@PathVariable long id, @Valid @RequestBody SaveMovieRequest request) {
-        Movie movie = movieService.updateMovie(id, request);
+    public ResponseEntity<MovieResponse> updateMovie(@PathVariable long id, @Valid @RequestBody SaveMovieRequest request) {
+        MovieResponse movie = movieService.updateMovie(id, request);
         return new ResponseEntity<>(movie, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Movie> getMovie(@PathVariable long id) {
-        Movie movie = movieService.getMovie(id);
+    public ResponseEntity<MovieResponse> getMovie(@PathVariable long id) {
+        MovieResponse movie = movieService.getMovieResponse(id);
         return new ResponseEntity<>(movie, HttpStatus.OK);
     }
 
     @GetMapping
-    public ResponseEntity<Page<Movie>> getMoviesBy(@Valid GetMoviesRequest request, Pageable pageable) {
-        Page<Movie> movie = movieService.getMoviesBy(request, pageable);
+    public ResponseEntity<Page<MovieResponse>> getMoviesBy(@Valid GetMoviesRequest request, Pageable pageable) {
+        Page<MovieResponse> movie = movieService.getMoviesBy(request, pageable);
         return new ResponseEntity<>(movie, HttpStatus.OK);
     }
 

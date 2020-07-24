@@ -3,16 +3,22 @@ package org.fasttrackit.movieexplorer.transfer.movie;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
-public class SaveMovieRequest {
-    @NotNull
+public class MovieResponse {
+
+    private long id;
     private String title;
-    @NotNull
     private String description;
-    @NotNull
     private String poster;
     private String trailer;
     private BigDecimal averageRate;
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;
@@ -56,8 +62,9 @@ public class SaveMovieRequest {
 
     @Override
     public String toString() {
-        return "SaveMovieRequest{" +
-                "title='" + title + '\'' +
+        return "MovieResponse{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", poster='" + poster + '\'' +
                 ", trailer='" + trailer + '\'' +
@@ -65,5 +72,3 @@ public class SaveMovieRequest {
                 '}';
     }
 }
-
-

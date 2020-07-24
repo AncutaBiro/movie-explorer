@@ -14,8 +14,10 @@ public class Actor {
     private long id;
 
     @NotNull
-    private String fullName;
-    private String starringMovies;
+    private String firstNameA;
+
+    @NotNull
+    private String lastNameA;
 
     public long getId() {
         return id;
@@ -25,28 +27,28 @@ public class Actor {
         this.id = id;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getFirstNameA() {
+        return firstNameA;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setFirstNameA(String firstNameA) {
+        this.firstNameA = firstNameA;
     }
 
-    public String getStarringMovies() {
-        return starringMovies;
+    public String getLastNameA() {
+        return lastNameA;
     }
 
-    public void setStarringMovies(String starringMovies) {
-        this.starringMovies = starringMovies;
+    public void setLastNameA(String lastNameA) {
+        this.lastNameA = lastNameA;
     }
 
     @Override
     public String toString() {
         return "Actor{" +
                 "id=" + id +
-                ", fullName='" + fullName + '\'' +
-                ", starringMovies='" + starringMovies + '\'' +
+                ", firstNameA='" + firstNameA + '\'' +
+                ", lastNameA='" + lastNameA + '\'' +
                 '}';
     }
 
