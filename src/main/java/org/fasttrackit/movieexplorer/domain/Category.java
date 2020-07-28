@@ -14,23 +14,21 @@ public class Category {
     @NotNull
     private String genre;
 
-//    @ManyToMany(cascade = CascadeType.MERGE)
-//    @JoinTable(name = "category_movie",
-//            joinColumns = @JoinColumn(name = "cart_id"),
-//            inverseJoinColumns = @JoinColumn(name = "product_id"))
-//    private Set<Product> products = new HashSet<>();
-//
-//    public void addProduct (Product product) {
-//        products.add(product);
-//
-//        product.getCarts().add(this);
-//    }
-//
-//    public void removeProduct (Product product) {
-//        products.remove(product);
-//
-//        product.getCarts().remove(this);
-//    }
+    @ManyToMany(cascade = CascadeType.MERGE)
+    @JoinTable(name = "category_movie",
+            joinColumns = @JoinColumn(name = "category_id"),
+            inverseJoinColumns = @JoinColumn(name = "movie_id"))
+    private Set<Movie> movies = new HashSet<>();
+
+    public void addMovie(Movie movie) {
+        movies.add(movie);
+        movie.getCategories().add(this);
+    }
+
+    public void removeMovie (Movie movie) {
+        movies.remove(movie);
+        movie.getCategories().remove(this);
+    }
 
     public long getId() {
         return id;
@@ -48,8 +46,13 @@ public class Category {
         this.genre = genre;
     }
 
+    public Set<Movie> getMovies() {
+        return movies;
+    }
 
-
+    public void setMovies(Set<Movie> movies) {
+        this.movies = movies;
+    }
 
     @Override
     public String toString() {

@@ -22,8 +22,8 @@ public class Movie {
     private String trailer;
     private BigDecimal averageRate;
 
-//    @ManyToMany(mappedBy = "products")
-//
+    @ManyToMany(mappedBy = "movies")
+    private Set<Category> categories = new HashSet<>();
 
     public long getId() {
         return id; }
@@ -71,6 +71,13 @@ public class Movie {
         this.averageRate = averageRate;
     }
 
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
+    }
 
     @Override
     public String toString() {

@@ -28,8 +28,10 @@ public class CategoryService {
     }
 
 
-    public void sortMovieToCategory (long categoryId, SortMovieToCategory request) {
+    public void addMovieToCategory (long categoryId, SortMovieToCategory request) {
         LOGGER.info("Sorting movie to category");
+
+
 
     }
 
