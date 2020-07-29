@@ -2,6 +2,8 @@ package org.fasttrackit.movieexplorer.web;
 
 import org.fasttrackit.movieexplorer.domain.Category;
 import org.fasttrackit.movieexplorer.service.CategoryService;
+import org.fasttrackit.movieexplorer.transfer.category.AddMovieToCategoryRequest;
+import org.fasttrackit.movieexplorer.transfer.category.CategoryResponse;
 import org.fasttrackit.movieexplorer.transfer.category.SaveCategoryRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,16 +25,17 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-    @PostMapping
-    public ResponseEntity<Category> createCategory (@RequestBody @Valid SaveCategoryRequest request){
-        Category category = categoryService.createCategory(request);
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> addMovieToCategory (@PathVariable long id,
+            @RequestBody @Valid AddMovieToCategoryRequest request){
+        categoryService.addMovieToCategory(id, request);
 
-        return new ResponseEntity<>(category, HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Category> getCategory (@PathVariable long id) {
-        Category category = categoryService.getCategory(id);
+    public ResponseEntity<CategoryResponse> getCategory (@PathVariable long id) {
+        CategoryResponse category = categoryService.getCategory(id);
 
         return new ResponseEntity<>(category, HttpStatus.OK);
     }

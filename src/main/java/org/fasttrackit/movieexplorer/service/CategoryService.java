@@ -2,16 +2,22 @@ package org.fasttrackit.movieexplorer.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.fasttrackit.movieexplorer.domain.Category;
+import org.fasttrackit.movieexplorer.domain.Movie;
 import org.fasttrackit.movieexplorer.exception.ResourceNotFoundException;
 import org.fasttrackit.movieexplorer.persistence.CategoryRepository;
+import org.fasttrackit.movieexplorer.persistence.MovieRepository;
+import org.fasttrackit.movieexplorer.transfer.category.CategoryResponse;
+import org.fasttrackit.movieexplorer.transfer.category.MovieInCategoryResponse;
 import org.fasttrackit.movieexplorer.transfer.category.SaveCategoryRequest;
-import org.fasttrackit.movieexplorer.transfer.category.SortMovieToCategory;
+import org.fasttrackit.movieexplorer.transfer.category.AddMovieToCategoryRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class CategoryService {
@@ -20,41 +26,64 @@ public class CategoryService {
 
     private final ObjectMapper objectMapper;
     private final CategoryRepository categoryRepository;
+    private final MovieService movieService;
 
     @Autowired
-    public CategoryService(ObjectMapper objectMapper, CategoryRepository categoryRepository) {
+    public CategoryService(ObjectMapper objectMapper, CategoryRepository categoryRepository, MovieService movieService) {
         this.objectMapper = objectMapper;
         this.categoryRepository = categoryRepository;
+        this.movieService = movieService;
     }
 
+    @Transactional
+    public void addMovieToCategory(long categoryId, AddMovieToCategoryRequest request) {
+        LOGGER.info("Adding movie to category {} {}", categoryId, request);
 
-    public void addMovieToCategory (long categoryId, SortMovieToCategory request) {
-        LOGGER.info("Sorting movie to category");
+        Category category = categoryRepository.findById(categoryId).orElseThrow();
 
-
-
+        for (Long movieId: request.getMovieIds()) {
+           Movie movie = movieService.getMovie(movieId);
+           category.addMovie(movie);
+        }
+        categoryRepository.save(category);
     }
 
-
-
-
-    public Category createCategory (SaveCategoryRequest request)  {
-        LOGGER.info ("Creating category {}", request);
-
+    public Category createCategory(SaveCategoryRequest request) {
+        LOGGER.info("Creating category {}", request);
 //        Category category =  new Category();
 //        category.setGenre(request.getGenre());
-
-        Category category = objectMapper.convertValue (request, Category.class);
-
+        Category category = objectMapper.convertValue(request, Category.class);
         return categoryRepository.save(category);
     }
 
-    public Category getCategory (long id) {
+    @Transactional
+    public CategoryResponse getCategory(long id) {
         LOGGER.info("Retrieving category {}", id);
 
-        return categoryRepository.findById(id)
+        Category category = categoryRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Category " + id + " not found."));
+
+        CategoryResponse categoryResponse = new CategoryResponse();
+        categoryResponse.setId(category.getId());
+
+        List<MovieInCategoryResponse> movieDtos = new ArrayList<>();
+
+        for (Movie movie: category.getMovies()){
+            MovieInCategoryResponse movieResponse = new MovieInCategoryResponse();
+            movieResponse.setId(movie.getId());
+            movieResponse.setTitle(movie.getTitle());
+            movieResponse.setAverageRate(movie.getAverageRate());
+
+            movieDtos.add(movieResponse);
+        }
+        categoryResponse.setMovies(movieDtos);
+
+        return categoryResponse;
     }
 
 
+
+
 }
+
+

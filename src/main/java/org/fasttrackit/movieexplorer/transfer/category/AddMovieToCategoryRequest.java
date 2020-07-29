@@ -3,7 +3,7 @@ package org.fasttrackit.movieexplorer.transfer.category;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-public class SortMovieToCategory {
+public class AddMovieToCategoryRequest {
 
     @NotNull
     private List<Long> movieIds;
