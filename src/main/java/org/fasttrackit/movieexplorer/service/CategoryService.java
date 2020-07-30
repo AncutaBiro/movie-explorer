@@ -41,19 +41,25 @@ public class CategoryService {
 
         Category category = categoryRepository.findById(categoryId).orElseThrow();
 
-        for (Long movieId: request.getMovieIds()) {
-           Movie movie = movieService.getMovie(movieId);
-           category.addMovie(movie);
+        for (Long movieId : request.getMovieIds()) {
+            Movie movie = movieService.getMovie(movieId);
+            category.addMovie(movie);
         }
         categoryRepository.save(category);
     }
 
-    public Category createCategory(SaveCategoryRequest request) {
+    @Transactional
+    public CategoryResponse createCategory(SaveCategoryRequest request) {
         LOGGER.info("Creating category {}", request);
-//        Category category =  new Category();
-//        category.setGenre(request.getGenre());
-        Category category = objectMapper.convertValue(request, Category.class);
-        return categoryRepository.save(category);
+        Category category = new Category();
+        category.setGenre(request.getGenre());
+
+        Category savedCategory = categoryRepository.save(category);
+        CategoryResponse categoryResponse = new CategoryResponse();
+        categoryResponse.setId(category.getId());
+        categoryResponse.setGenre(category.getGenre());
+
+        return mapCategoryResponse(savedCategory);
     }
 
     @Transactional
@@ -65,10 +71,11 @@ public class CategoryService {
 
         CategoryResponse categoryResponse = new CategoryResponse();
         categoryResponse.setId(category.getId());
+        categoryResponse.setGenre(category.getGenre());
 
         List<MovieInCategoryResponse> movieDtos = new ArrayList<>();
 
-        for (Movie movie: category.getMovies()){
+        for (Movie movie : category.getMovies()) {
             MovieInCategoryResponse movieResponse = new MovieInCategoryResponse();
             movieResponse.setId(movie.getId());
             movieResponse.setTitle(movie.getTitle());
@@ -81,7 +88,13 @@ public class CategoryService {
         return categoryResponse;
     }
 
+    private CategoryResponse mapCategoryResponse(Category category) {
+        CategoryResponse categoryResponse = new CategoryResponse();
+        categoryResponse.setId(category.getId());
+        categoryResponse.setGenre(category.getGenre());
 
+        return categoryResponse;
+    }
 
 
 }

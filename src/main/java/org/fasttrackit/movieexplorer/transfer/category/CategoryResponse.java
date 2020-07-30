@@ -5,6 +5,7 @@ import java.util.List;
 public class CategoryResponse {
 
     private long id;
+    private String genre;
     private List<MovieInCategoryResponse> movies;
 
     public long getId() {
@@ -21,5 +22,13 @@ public class CategoryResponse {
 
     public void setMovies(List<MovieInCategoryResponse> movies) {
         this.movies = movies;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 }

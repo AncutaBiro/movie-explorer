@@ -25,6 +25,14 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
+
+    @PostMapping
+    public ResponseEntity<CategoryResponse> createCategory (@RequestBody @Valid SaveCategoryRequest request) {
+        CategoryResponse category = categoryService.createCategory(request);
+
+        return new ResponseEntity<>(category, HttpStatus.CREATED);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<Void> addMovieToCategory (@PathVariable long id,
             @RequestBody @Valid AddMovieToCategoryRequest request){
