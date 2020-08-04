@@ -1,9 +1,6 @@
 package org.fasttrackit.movieexplorer.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
@@ -15,6 +12,10 @@ public class Rating {
     private long id;
     @NotNull
     private BigDecimal rate;
+
+    @ManyToOne (fetch = FetchType.LAZY)
+    @JoinColumn(name = "movie_id")
+    private Movie movie;
 
     public long getId() {
         return id;
@@ -28,8 +29,17 @@ public class Rating {
         return rate;
     }
 
+    public Movie getMovie() {
+        return movie;
+    }
+
+    public void setMovie(Movie movie) {
+        this.movie = movie;
+    }
+
     public void setRate(BigDecimal rate) {
         this.rate = rate;
+
     }
 
     @Override
