@@ -25,15 +25,21 @@ public class Movie {
     @ManyToMany(mappedBy = "movies")
     private Set<Category> categories = new HashSet<>();
 
+    @ManyToMany (mappedBy = "movies")
+    private Set<Actor> actors = new HashSet<>();
+
+
     public long getId() {
-        return id; }
+        return id;
+    }
 
     public void setId(long id) {
         this.id = id;
     }
 
     public String getTitle() {
-        return title; }
+        return title;
+    }
 
     public void setTitle(String title) {
         this.title = title;
@@ -77,6 +83,14 @@ public class Movie {
 
     public void setCategories(Set<Category> categories) {
         this.categories = categories;
+    }
+
+    public Set<Actor> getActors() {
+        return actors;
+    }
+
+    public void setActors(Set<Actor> actors) {
+        this.actors = actors;
     }
 
     @Override

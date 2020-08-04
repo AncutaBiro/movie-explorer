@@ -1,16 +1,15 @@
 package org.fasttrackit.movieexplorer.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Actor {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @NotNull
@@ -18,6 +17,22 @@ public class Actor {
 
     @NotNull
     private String lastNameA;
+
+    @ManyToMany(cascade = CascadeType.MERGE)
+    @JoinTable(name = "actor_movie",
+            joinColumns = @JoinColumn(name = "actor_id"),
+            inverseJoinColumns = @JoinColumn(name = "movie_id"))
+    private Set<Movie> movies = new HashSet<>();
+
+    public void addMovie (Movie movie) {
+        movies.add(movie);
+        movie.getActors().add(this);
+    }
+
+    public void removeMovie (Movie movie) {
+        movies.remove(movie);
+        movie.getActors().remove(this);
+    }
 
     public long getId() {
         return id;
@@ -41,6 +56,14 @@ public class Actor {
 
     public void setLastNameA(String lastNameA) {
         this.lastNameA = lastNameA;
+    }
+
+    public Set<Movie> getMovies() {
+        return movies;
+    }
+
+    public void setMovies(Set<Movie> movies) {
+        this.movies = movies;
     }
 
     @Override

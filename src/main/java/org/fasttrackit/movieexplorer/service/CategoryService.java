@@ -48,16 +48,12 @@ public class CategoryService {
         categoryRepository.save(category);
     }
 
-    @Transactional
     public CategoryResponse createCategory(SaveCategoryRequest request) {
         LOGGER.info("Creating category {}", request);
         Category category = new Category();
         category.setGenre(request.getGenre());
 
         Category savedCategory = categoryRepository.save(category);
-        CategoryResponse categoryResponse = new CategoryResponse();
-        categoryResponse.setId(category.getId());
-        categoryResponse.setGenre(category.getGenre());
 
         return mapCategoryResponse(savedCategory);
     }
@@ -69,9 +65,11 @@ public class CategoryService {
         Category category = categoryRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Category " + id + " not found."));
 
-        CategoryResponse categoryResponse = new CategoryResponse();
-        categoryResponse.setId(category.getId());
-        categoryResponse.setGenre(category.getGenre());
+//        CategoryResponse categoryResponse = new CategoryResponse();
+//        categoryResponse.setId(category.getId());
+//        categoryResponse.setGenre(category.getGenre());
+
+        CategoryResponse categoryResponse = mapCategoryResponse(category);
 
         List<MovieInCategoryResponse> movieDtos = new ArrayList<>();
 
