@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,23 +26,21 @@ public class RatingService {
         this.ratingRepository = ratingRepository;
     }
 
-
-    public Page<RatingResponse> getRatings (long movieId, Pageable pageable) {
+    @Transactional
+    public Page<RatingResponse> getRatings(long movieId, Pageable pageable) {
         Page<Rating> page = ratingRepository.findByMovieId(movieId, pageable);
 
         List<RatingResponse> ratingDtos = new ArrayList<>();
 
-        for (Rating rating: page.getContent()) {
+        for (Rating rating : page.getContent()) {
             RatingResponse ratingResponse = mapRatingResponse(rating);
 
             ratingDtos.add(ratingResponse);
         }
-         return new PageImpl<>(ratingDtos, pageable, page.getTotalElements());
-
+        return new PageImpl<>(ratingDtos, pageable, page.getTotalElements());
     }
 
-
-    private RatingResponse mapRatingResponse (Rating rating) {
+    private RatingResponse mapRatingResponse(Rating rating) {
         RatingResponse ratingResponse = new RatingResponse();
         ratingResponse.setId(rating.getId());
         ratingResponse.setRate(rating.getRate());
