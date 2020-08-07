@@ -11,7 +11,7 @@ public class SaveMovieRequest {
     @NotNull
     private String poster;
     private String trailer;
-    private BigDecimal averageRate;
+    private BigDecimal rate;
 
 
     public String getTitle() {
@@ -46,12 +46,12 @@ public class SaveMovieRequest {
         this.trailer = trailer;
     }
 
-    public BigDecimal getAverageRate() {
-        return averageRate;
+    public BigDecimal getRate() {
+        return rate;
     }
 
-    public void setAverageRate(BigDecimal averageRate) {
-        this.averageRate = averageRate;
+    public void setRate(BigDecimal rate) {
+        this.rate = rate;
     }
 
     @Override
@@ -61,7 +61,7 @@ public class SaveMovieRequest {
                 ", description='" + description + '\'' +
                 ", poster='" + poster + '\'' +
                 ", trailer='" + trailer + '\'' +
-                ", averageRate=" + averageRate +
+                ", rate=" + rate +
                 '}';
     }
 }

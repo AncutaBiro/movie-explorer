@@ -20,7 +20,7 @@ public class Movie {
     @NotNull
     private String poster;
     private String trailer;
-    private BigDecimal averageRate;
+    private BigDecimal rate;
 
     @ManyToMany(mappedBy = "movies")
     private Set<Category> categories = new HashSet<>();
@@ -69,12 +69,12 @@ public class Movie {
         this.trailer = trailer;
     }
 
-    public BigDecimal getAverageRate() {
-        return averageRate;
+    public BigDecimal getRate() {
+        return rate;
     }
 
-    public void setAverageRate(BigDecimal averageRate) {
-        this.averageRate = averageRate;
+    public void setRate(BigDecimal rate) {
+        this.rate = rate;
     }
 
     public Set<Category> getCategories() {
@@ -101,7 +101,7 @@ public class Movie {
                 ", description='" + description + '\'' +
                 ", poster='" + poster + '\'' +
                 ", trailer='" + trailer + '\'' +
-                ", averageRate=" + averageRate +
+                ", rate=" + rate +
                 '}';
     }
 

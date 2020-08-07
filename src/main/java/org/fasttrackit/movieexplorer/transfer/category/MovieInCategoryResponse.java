@@ -6,7 +6,7 @@ public class MovieInCategoryResponse {
 
     private long id;
     private String title;
-    private BigDecimal averageRate;
+    private BigDecimal rate;
 
     public long getId() {
         return id;
@@ -24,11 +24,11 @@ public class MovieInCategoryResponse {
         this.title = title;
     }
 
-    public BigDecimal getAverageRate() {
-        return averageRate;
+    public BigDecimal getRate() {
+        return rate;
     }
 
-    public void setAverageRate(BigDecimal averageRate) {
-        this.averageRate = averageRate;
+    public void setRate(BigDecimal rate) {
+        this.rate = rate;
     }
 }

@@ -40,7 +40,7 @@ public class MovieService {
         movie.setDescription(request.getDescription());
         movie.setPoster(request.getPoster());
         movie.setTrailer(request.getTrailer());
-        movie.setAverageRate(request.getAverageRate());
+        movie.setRate(request.getRate());
 
         Movie movie1 = movieRepository.save(movie);
 
@@ -67,7 +67,7 @@ public class MovieService {
     }
 
     @Transactional
-    public Page<MovieResponse> getMoviesByAverageRate (Pageable pageable) {
+    public Page<MovieResponse> getMoviesByRate (Pageable pageable) {
 //        if (request.getPartialTitle() != null) {
 //            return movieRepository.findByTitleContaining(request.getPartialTitle(), pageable);
 //        } else if (request.getFindAverageRate() != null) {
@@ -75,7 +75,7 @@ public class MovieService {
 //        } else {
 //            return movieRepository.findAll(pageable);
 //        }
-        Page<Movie> page = movieRepository.findAllByOrderByAverageRateDesc (pageable);
+        Page<Movie> page = movieRepository.findAllByOrderByRateDesc (pageable);
 
         List<MovieResponse> moviesDtos = new ArrayList<>();
 
@@ -83,7 +83,6 @@ public class MovieService {
             MovieResponse movieResponse = mapMovieResponse(movie);
             moviesDtos.add(movieResponse);
         }
-
         return new PageImpl<>(moviesDtos, pageable, page.getTotalElements());
     }
 
@@ -134,7 +133,7 @@ public class MovieService {
         movieResponse.setDescription(movie.getDescription());
         movieResponse.setPoster(movie.getPoster());
         movieResponse.setTrailer(movie.getTrailer());
-        movieResponse.setAverageRate(movie.getAverageRate());
+        movieResponse.setRate(movie.getRate());
 
         return movieResponse;
     }

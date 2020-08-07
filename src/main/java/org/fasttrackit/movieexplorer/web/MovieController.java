@@ -44,9 +44,15 @@ public class MovieController {
         return new ResponseEntity<>(movie, HttpStatus.OK);
     }
 
+//    @GetMapping
+//    public ResponseEntity<Page<MovieResponse>> getMoviesBy(@Valid GetMoviesRequest request, Pageable pageable) {
+//        Page<MovieResponse> movie = movieService.getMoviesBy(request, pageable);
+//        return new ResponseEntity<>(movie, HttpStatus.OK);
+//    }
+
     @GetMapping
-    public ResponseEntity<Page<MovieResponse>> getMoviesBy(@Valid GetMoviesRequest request, Pageable pageable) {
-        Page<MovieResponse> movie = movieService.getMoviesBy(request, pageable);
+    public ResponseEntity<Page<MovieResponse>> getMoviesByRate (Pageable pageable) {
+        Page<MovieResponse> movie = movieService.getMoviesByRate (pageable);
         return new ResponseEntity<>(movie, HttpStatus.OK);
     }
 

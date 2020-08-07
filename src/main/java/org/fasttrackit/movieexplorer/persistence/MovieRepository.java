@@ -12,7 +12,7 @@ public interface MovieRepository extends JpaRepository <Movie, Long> {
 
     Page<Movie> findByTitleContaining(String partialTitle, Pageable pageable);
 
-    Page<Movie> findAllByOrderByAverageRateDesc (Pageable pageable);
+    Page<Movie> findAllByOrderByRateDesc (Pageable pageable);
 
     //JPQL syntax
     @Query(value= "SELECT movie FROM Movie movie WHERE " +

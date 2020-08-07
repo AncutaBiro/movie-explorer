@@ -10,7 +10,7 @@ public class MovieResponse {
     private String description;
     private String poster;
     private String trailer;
-    private BigDecimal averageRate;
+    private BigDecimal rate;
 
     public long getId() {
         return id;
@@ -52,12 +52,12 @@ public class MovieResponse {
         this.trailer = trailer;
     }
 
-    public BigDecimal getAverageRate() {
-        return averageRate;
+    public BigDecimal getRate() {
+        return rate;
     }
 
-    public void setAverageRate(BigDecimal averageRate) {
-        this.averageRate = averageRate;
+    public void setRate(BigDecimal rate) {
+        this.rate = rate;
     }
 
     @Override
@@ -68,7 +68,7 @@ public class MovieResponse {
                 ", description='" + description + '\'' +
                 ", poster='" + poster + '\'' +
                 ", trailer='" + trailer + '\'' +
-                ", averageRate=" + averageRate +
+                ", rate=" + rate +
                 '}';
     }
 }

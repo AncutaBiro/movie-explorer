@@ -66,7 +66,7 @@ public class ActorService {
             MovieInActorResponse movieResponse = new MovieInActorResponse();
             movieResponse.setId(movie.getId());
             movieResponse.setTitle(movie.getTitle());
-            movieResponse.setAverageRate(movie.getAverageRate());
+            movieResponse.setRate(movie.getRate());
 
             movieDtos.add(movieResponse);
         }

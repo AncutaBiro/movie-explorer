@@ -78,7 +78,7 @@ public class CategoryService {
             MovieInCategoryResponse movieResponse = new MovieInCategoryResponse();
             movieResponse.setId(movie.getId());
             movieResponse.setTitle(movie.getTitle());
-            movieResponse.setAverageRate(movie.getAverageRate());
+            movieResponse.setRate(movie.getRate());
 
             movieDtos.add(movieResponse);
         }
@@ -100,7 +100,7 @@ public class CategoryService {
             MovieInCategoryResponse movieInCategoryResponse = new MovieInCategoryResponse();
             movieInCategoryResponse.setId(movie.getId());
             movieInCategoryResponse.setTitle(movie.getTitle());
-            movieInCategoryResponse.setAverageRate(movie.getAverageRate());
+            movieInCategoryResponse.setRate(movie.getRate());
             movieDtos.add(movieInCategoryResponse);
         }
 
