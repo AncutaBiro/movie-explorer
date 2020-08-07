@@ -49,10 +49,9 @@ public class CategoryController {
 //        return new ResponseEntity<>(category, HttpStatus.OK);
 //    }
 
-    @GetMapping
-    public ResponseEntity<Page<CategoryResponse>> getCategory(@Valid SaveCategoryRequest request, Pageable pageable) {
-        Page<CategoryResponse> category = categoryService.getCategory(request, pageable);
-
+    @GetMapping ("/{genre}")
+    public ResponseEntity<CategoryResponse> getMoviesByCategory (@PathVariable String genre, Pageable pageable) {
+        CategoryResponse category = categoryService.getMoviesByCategory (genre, pageable);
         return new ResponseEntity<>(category, HttpStatus.OK);
     }
 

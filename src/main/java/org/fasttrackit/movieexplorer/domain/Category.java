@@ -12,6 +12,7 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @NotNull
+    @Column(unique = true)
     private String genre;
 
     @ManyToMany(cascade = CascadeType.MERGE)

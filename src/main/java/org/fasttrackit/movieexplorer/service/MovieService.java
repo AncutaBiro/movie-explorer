@@ -67,6 +67,27 @@ public class MovieService {
     }
 
     @Transactional
+    public Page<MovieResponse> getMoviesByAverageRate (Pageable pageable) {
+//        if (request.getPartialTitle() != null) {
+//            return movieRepository.findByTitleContaining(request.getPartialTitle(), pageable);
+//        } else if (request.getFindAverageRate() != null) {
+//            return movieRepository.findByAverageRateGreaterThanEqual(request.getFindAverageRate(), pageable);
+//        } else {
+//            return movieRepository.findAll(pageable);
+//        }
+        Page<Movie> page = movieRepository.findAllByOrderByAverageRateDesc (pageable);
+
+        List<MovieResponse> moviesDtos = new ArrayList<>();
+
+        for (Movie movie : page.getContent()) {
+            MovieResponse movieResponse = mapMovieResponse(movie);
+            moviesDtos.add(movieResponse);
+        }
+
+        return new PageImpl<>(moviesDtos, pageable, page.getTotalElements());
+    }
+
+    @Transactional
     public Page<MovieResponse> getMoviesBy(GetMoviesRequest request, Pageable pageable) {
 //        if (request.getPartialTitle() != null) {
 //            return movieRepository.findByTitleContaining(request.getPartialTitle(), pageable);

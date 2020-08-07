@@ -61,51 +61,55 @@ public class CategoryService {
         return mapCategoryResponse(savedCategory);
     }
 
-//    @Transactional
-//    public CategoryResponse getCategory(long id) {
-//        LOGGER.info("Retrieving category {}", id);
-//
-//        Category category = categoryRepository.findById(id)
-//                .orElseThrow(() -> new ResourceNotFoundException("Category " + id + " not found."));
-//
-//        CategoryResponse categoryResponse = new CategoryResponse();
-//        categoryResponse.setId(category.getId());
-//        categoryResponse.setGenre(category.getGenre());
-//
-//        List<MovieInCategoryResponse> movieDtos = new ArrayList<>();
-//
-//        for (Movie movie : category.getMovies()) {
-//            MovieInCategoryResponse movieResponse = new MovieInCategoryResponse();
-//            movieResponse.setId(movie.getId());
-//            movieResponse.setTitle(movie.getTitle());
-//            movieResponse.setAverageRate(movie.getAverageRate());
-//
-//            movieDtos.add(movieResponse);
-//        }
-//        categoryResponse.setMovies(movieDtos);
-//
-//        return categoryResponse;
-//    }
+    @Transactional
+    public CategoryResponse getCategory (long id) {
+        LOGGER.info("Retrieving category {}", id);
+
+        Category category = categoryRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Category " + id + " not found."));
+
+        CategoryResponse categoryResponse = new CategoryResponse();
+        categoryResponse.setId(category.getId());
+        categoryResponse.setGenre(category.getGenre());
+
+        List<MovieInCategoryResponse> movieDtos = new ArrayList<>();
+
+        for (Movie movie : category.getMovies()) {
+            MovieInCategoryResponse movieResponse = new MovieInCategoryResponse();
+            movieResponse.setId(movie.getId());
+            movieResponse.setTitle(movie.getTitle());
+            movieResponse.setAverageRate(movie.getAverageRate());
+
+            movieDtos.add(movieResponse);
+        }
+        categoryResponse.setMovies(movieDtos);
+
+        return categoryResponse;
+    }
 
     @Transactional
-    public Page<CategoryResponse> getCategory (SaveCategoryRequest request, Pageable pageable) {
-        LOGGER.info("Retrieving category {}", request);
+    public CategoryResponse getMoviesByCategory (String genre, Pageable pageable) {
+        LOGGER.info("Retrieving category {}", genre);
 
-        Page<Category> page = categoryRepository.findByGenre (request.getGenre(), pageable);
+        Category category = categoryRepository.findByGenre(genre);
 
         List<CategoryResponse> categoryDtos = new ArrayList<>();
 
-//        List<MovieInCategoryResponse> movieDtos = new ArrayList<>();
-//        MovieInCategoryResponse movieResponse = new MovieInCategoryResponse();
-//        movieResponse.setId(movie.getId());
-//        movieDtos.add(movieResponse);
-
-        for (Category category : page.getContent()) {
-            CategoryResponse categoryResponse = mapCategoryResponse(category);
-            categoryDtos.add(categoryResponse);
+        List<MovieInCategoryResponse> movieDtos = new ArrayList<>();
+        for (Movie movie : category.getMovies()) {
+            MovieInCategoryResponse movieInCategoryResponse = new MovieInCategoryResponse();
+            movieInCategoryResponse.setId(movie.getId());
+            movieInCategoryResponse.setTitle(movie.getTitle());
+            movieInCategoryResponse.setAverageRate(movie.getAverageRate());
+            movieDtos.add(movieInCategoryResponse);
         }
 
-        return new PageImpl<>(categoryDtos, pageable, page.getTotalElements());
+        CategoryResponse categoryResponse = mapCategoryResponse(category);
+
+        categoryResponse.setMovies(movieDtos);
+
+        return categoryResponse;
+
     }
 
     private CategoryResponse mapCategoryResponse(Category category) {
