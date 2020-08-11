@@ -46,7 +46,7 @@ public class UserServiceIntegrationTests {
 
     @Test
     void getUser_whenExistingUser_thenDisplayUser() {
-        User user = userTestSteps.createUser();;
+        User user = userTestSteps.createUser();
 
         User response = userService.getUser(user.getId());
 
