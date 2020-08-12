@@ -21,6 +21,8 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class CategoryService {
@@ -62,7 +64,7 @@ public class CategoryService {
     }
 
     @Transactional
-    public CategoryResponse getCategory (long id) {
+    public CategoryResponse getCategory(long id) {
         LOGGER.info("Retrieving category {}", id);
 
         Category category = categoryRepository.findById(id)
@@ -88,7 +90,7 @@ public class CategoryService {
     }
 
     @Transactional
-    public CategoryResponse getMoviesByCategory (String genre, Pageable pageable) {
+    public CategoryResponse getMoviesByCategory(String genre, Pageable pageable) {
         LOGGER.info("Retrieving category {}", genre);
 
         Category category = categoryRepository.findByGenre(genre);
@@ -101,6 +103,7 @@ public class CategoryService {
             movieInCategoryResponse.setId(movie.getId());
             movieInCategoryResponse.setTitle(movie.getTitle());
             movieInCategoryResponse.setRate(movie.getRate());
+            movieInCategoryResponse.setCategories(mapCategories(movie.getCategories()));
             movieDtos.add(movieInCategoryResponse);
         }
 
@@ -120,6 +123,14 @@ public class CategoryService {
         return categoryResponse;
     }
 
+    private List<String> mapCategories(Set<Category> categories) {
+        return categories.stream()
+                .map(category -> {
+                    String firstLetter = category.getGenre().substring(0, 1).toUpperCase();
+                    return firstLetter + category.getGenre().substring(1);
+                })
+                .collect(Collectors.toList());
+    }
 
 }
 

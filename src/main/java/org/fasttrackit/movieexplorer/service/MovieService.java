@@ -1,5 +1,6 @@
 package org.fasttrackit.movieexplorer.service;
 
+import org.fasttrackit.movieexplorer.domain.Category;
 import org.fasttrackit.movieexplorer.domain.Movie;
 import org.fasttrackit.movieexplorer.exception.ResourceNotFoundException;
 import org.fasttrackit.movieexplorer.persistence.MovieRepository;
@@ -19,6 +20,8 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class MovieService {
@@ -134,7 +137,12 @@ public class MovieService {
         movieResponse.setPoster(movie.getPoster());
         movieResponse.setTrailer(movie.getTrailer());
         movieResponse.setRate(movie.getRate());
+        movieResponse.setCategories(mapCategories(movie.getCategories()));
 
         return movieResponse;
+    }
+
+    private List<String> mapCategories (Set<Category> categories) {
+        return categories.stream().map(Category::getGenre).collect(Collectors.toList());
     }
 }

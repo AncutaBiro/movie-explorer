@@ -1,12 +1,15 @@
 package org.fasttrackit.movieexplorer.transfer.category;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MovieInCategoryResponse {
 
     private long id;
     private String title;
     private BigDecimal rate;
+    private List<String> categories = new ArrayList<>();
 
     public long getId() {
         return id;
@@ -30,5 +33,13 @@ public class MovieInCategoryResponse {
 
     public void setRate(BigDecimal rate) {
         this.rate = rate;
+    }
+
+    public List<String> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<String> categories) {
+        this.categories = categories;
     }
 }

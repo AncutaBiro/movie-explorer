@@ -50,11 +50,11 @@ public class MovieController {
         return new ResponseEntity<>(movie, HttpStatus.OK);
     }
 
-//    @GetMapping
-//    public ResponseEntity<Page<MovieResponse>> getMoviesByRate (Pageable pageable) {
-//        Page<MovieResponse> movie = movieService.getMoviesByRate (pageable);
-//        return new ResponseEntity<>(movie, HttpStatus.OK);
-//    }
+    @GetMapping("/byRate")
+    public ResponseEntity<Page<MovieResponse>> getMoviesByRate (Pageable pageable) {
+        Page<MovieResponse> movie = movieService.getMoviesByRate (pageable);
+        return new ResponseEntity<>(movie, HttpStatus.OK);
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteMovie(@PathVariable long id) {

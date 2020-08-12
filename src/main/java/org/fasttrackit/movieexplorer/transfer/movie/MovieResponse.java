@@ -2,6 +2,8 @@ package org.fasttrackit.movieexplorer.transfer.movie;
 
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MovieResponse {
 
@@ -11,6 +13,8 @@ public class MovieResponse {
     private String poster;
     private String trailer;
     private BigDecimal rate;
+
+    private List<String> categories = new ArrayList<>();
 
     public long getId() {
         return id;
@@ -58,6 +62,14 @@ public class MovieResponse {
 
     public void setRate(BigDecimal rate) {
         this.rate = rate;
+    }
+
+    public List<String> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<String> categories) {
+        this.categories = categories;
     }
 
     @Override

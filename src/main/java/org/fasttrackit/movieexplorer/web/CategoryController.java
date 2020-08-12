@@ -43,11 +43,11 @@ public class CategoryController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-//    @GetMapping("/{id}")
-//    public ResponseEntity<CategoryResponse> getCategory(@PathVariable long id) {
-//        CategoryResponse category = categoryService.getCategory(id);
-//        return new ResponseEntity<>(category, HttpStatus.OK);
-//    }
+    @GetMapping("/{id}")
+    public ResponseEntity<CategoryResponse> getCategory(@PathVariable long id) {
+        CategoryResponse category = categoryService.getCategory(id);
+        return new ResponseEntity<>(category, HttpStatus.OK);
+    }
 
     @GetMapping ("/{genre}")
     public ResponseEntity<CategoryResponse> getMoviesByCategory (@PathVariable String genre, Pageable pageable) {
