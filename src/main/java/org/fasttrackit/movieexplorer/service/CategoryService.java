@@ -103,6 +103,7 @@ public class CategoryService {
             movieInCategoryResponse.setId(movie.getId());
             movieInCategoryResponse.setTitle(movie.getTitle());
             movieInCategoryResponse.setRate(movie.getRate());
+            movieInCategoryResponse.setPoster(movie.getPoster());
             movieInCategoryResponse.setCategories(mapCategories(movie.getCategories()));
             movieDtos.add(movieInCategoryResponse);
         }

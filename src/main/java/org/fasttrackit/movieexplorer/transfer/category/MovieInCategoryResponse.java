@@ -9,6 +9,7 @@ public class MovieInCategoryResponse {
     private long id;
     private String title;
     private BigDecimal rate;
+    private String poster;
     private List<String> categories = new ArrayList<>();
 
     public long getId() {
@@ -41,5 +42,13 @@ public class MovieInCategoryResponse {
 
     public void setCategories(List<String> categories) {
         this.categories = categories;
+    }
+
+    public String getPoster() {
+        return poster;
+    }
+
+    public void setPoster(String poster) {
+        this.poster = poster;
     }
 }

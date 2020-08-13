@@ -6,6 +6,7 @@ public class CategoryResponse {
 
     private long id;
     private String genre;
+    private String poster;
     private List<MovieInCategoryResponse> movies;
 
     public long getId() {
@@ -30,5 +31,13 @@ public class CategoryResponse {
 
     public void setGenre(String genre) {
         this.genre = genre;
+    }
+
+    public String getPoster() {
+        return poster;
+    }
+
+    public void setPoster(String poster) {
+        this.poster = poster;
     }
 }
