@@ -17,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -115,6 +116,8 @@ public class MovieService {
         LOGGER.info("Updating movie {} : {}", id, request);
 
         Movie movie = getMovie(id);
+
+//        String [] excludedProperties = new String["title", ];
 
         BeanUtils.copyProperties(request, movie);
 
