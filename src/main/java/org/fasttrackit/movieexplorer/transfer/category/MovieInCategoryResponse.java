@@ -40,6 +40,7 @@ public class MovieInCategoryResponse {
         return categories;
     }
 
+
     public void setCategories(List<String> categories) {
         this.categories = categories;
     }
