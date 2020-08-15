@@ -5,8 +5,6 @@ import org.fasttrackit.movieexplorer.exception.ResourceNotFoundException;
 import org.fasttrackit.movieexplorer.service.UserService;
 import org.fasttrackit.movieexplorer.steps.UserTestSteps;
 import org.fasttrackit.movieexplorer.transfer.user.SaveUserRequest;
-import org.fasttrackit.movieexplorer.domain.User;
-import org.fasttrackit.movieexplorer.transfer.user.SaveUserRequest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,8 +14,6 @@ import javax.validation.ConstraintViolationException;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.hasSize;
 
 @SpringBootTest
 public class UserServiceIntegrationTests {
@@ -34,7 +30,7 @@ public class UserServiceIntegrationTests {
     }
 
     @Test
-    void createUser_whenMissingAllMandatoryProperties_ThenThrowException () {
+    void createUser_whenMissingAllMandatoryProperties_ThenThrowException() {
         SaveUserRequest request = new SaveUserRequest();
 
         try {

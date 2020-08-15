@@ -56,7 +56,7 @@ public class CategoryService {
         return mapCategoryResponse(savedCategory);
     }
 
-    /*GeyCategory Service by id*/
+    /*GetCategory Service by id*/
 //    @Transactional
 //    public CategoryResponse getCategory(long id) {
 //        LOGGER.info("Retrieving category {}", id);
@@ -89,7 +89,7 @@ public class CategoryService {
 
         Category category = categoryRepository.findByGenre(genre);
 
-        List<CategoryResponse> categoryDtos = new ArrayList<>();
+//        List<CategoryResponse> categoryDtos = new ArrayList<>();
 
         List<MovieInCategoryResponse> movieDtos = new ArrayList<>();
         for (Movie movie : category.getMovies()) {

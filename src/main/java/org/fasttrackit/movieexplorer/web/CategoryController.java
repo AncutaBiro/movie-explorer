@@ -43,7 +43,7 @@ public class CategoryController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    /*GeyCategory Controller by id*/
+    /*GetCategory Controller by id*/
 //    @GetMapping("/{id}")
 //    public ResponseEntity<CategoryResponse> getCategory(@PathVariable long id) {
 //        CategoryResponse category = categoryService.getCategory(id);

@@ -23,7 +23,7 @@ public class UserTestSteps {
         request.setLastName("Dom");
         request.setEmail("t.d@yahoo.com");
 
-        User user = userService.createUser (request);
+        User user = userService.createUser(request);
 
         assertThat(user, notNullValue());
         assertThat(user.getId(), greaterThan(0L));
