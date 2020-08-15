@@ -7,6 +7,7 @@ import org.fasttrackit.movieexplorer.persistence.MovieRepository;
 import org.fasttrackit.movieexplorer.transfer.movie.GetMoviesRequest;
 import org.fasttrackit.movieexplorer.transfer.movie.MovieResponse;
 import org.fasttrackit.movieexplorer.transfer.movie.SaveMovieRequest;
+import org.fasttrackit.movieexplorer.transfer.movie.UpdateMovieRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.lang.reflect.Array;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -60,25 +62,14 @@ public class MovieService {
     }
 
     public Movie getMovie(long id) {
-        //        Optional<Movie> movieOptional = movieRepository.findById(id);
-//        if (movieOptional.isPresent()) {
-//            return movieOptional.get();
-//        } else {
-//            throw new ResourceNotFoundException("Movie " + id + " not found.");
-//        }
+
         return movieRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Movie " + id + " not found."));
     }
 
     @Transactional
     public Page<MovieResponse> getMoviesByRate (Pageable pageable) {
-//        if (request.getPartialTitle() != null) {
-//            return movieRepository.findByTitleContaining(request.getPartialTitle(), pageable);
-//        } else if (request.getFindAverageRate() != null) {
-//            return movieRepository.findByAverageRateGreaterThanEqual(request.getFindAverageRate(), pageable);
-//        } else {
-//            return movieRepository.findAll(pageable);
-//        }
+
         Page<Movie> page = movieRepository.findAllByOrderByRateDesc (pageable);
 
         List<MovieResponse> moviesDtos = new ArrayList<>();
@@ -92,13 +83,7 @@ public class MovieService {
 
     @Transactional
     public Page<MovieResponse> getMoviesBy(GetMoviesRequest request, Pageable pageable) {
-//        if (request.getPartialTitle() != null) {
-//            return movieRepository.findByTitleContaining(request.getPartialTitle(), pageable);
-//        } else if (request.getFindAverageRate() != null) {
-//            return movieRepository.findByAverageRateGreaterThanEqual(request.getFindAverageRate(), pageable);
-//        } else {
-//            return movieRepository.findAll(pageable);
-//        }
+
         Page<Movie> page = movieRepository
                 .findByOptionalCriteria(request.getPartialTitle(), request.getPartialDescription(), pageable);
 
@@ -112,12 +97,10 @@ public class MovieService {
         return new PageImpl<>(moviesDtos, pageable, page.getTotalElements());
     }
 
-    public MovieResponse updateMovie(long id, SaveMovieRequest request) {
+    public MovieResponse updateMovie(long id, UpdateMovieRequest request) {
         LOGGER.info("Updating movie {} : {}", id, request);
 
         Movie movie = getMovie(id);
-
-//        String [] excludedProperties = new String["title", ];
 
         BeanUtils.copyProperties(request, movie);
 

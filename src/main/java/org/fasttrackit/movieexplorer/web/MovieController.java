@@ -5,6 +5,7 @@ import org.fasttrackit.movieexplorer.service.MovieService;
 import org.fasttrackit.movieexplorer.transfer.movie.GetMoviesRequest;
 import org.fasttrackit.movieexplorer.transfer.movie.MovieResponse;
 import org.fasttrackit.movieexplorer.transfer.movie.SaveMovieRequest;
+import org.fasttrackit.movieexplorer.transfer.movie.UpdateMovieRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.math.BigDecimal;
 
 @CrossOrigin
 @RestController
@@ -33,7 +35,7 @@ public class MovieController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<MovieResponse> updateMovie(@PathVariable long id, @Valid @RequestBody SaveMovieRequest request) {
+    public ResponseEntity<MovieResponse> updateMovie(@PathVariable long id, @Valid @RequestBody UpdateMovieRequest request) {
         MovieResponse movie = movieService.updateMovie(id, request);
         return new ResponseEntity<>(movie, HttpStatus.OK);
     }
