@@ -4,9 +4,9 @@ import java.math.BigDecimal;
 
 public class GetMoviesRequest {
 
-    String partialTitle;
-    BigDecimal findAverageRate;
-    String partialDescription;
+    private String partialTitle;
+    private BigDecimal findAverageRate;
+    private String partialDescription;
 
     public String getPartialTitle() {
         return partialTitle;

@@ -5,9 +5,9 @@ import java.util.List;
 public class ActorResponse {
 
     private long id;
-    private String firstNameA;
-    private String lastNameA;
-    private List <MovieInActorResponse> movies;
+    private String firstName;
+    private String lastName;
+    private List<MovieInActorResponse> movies;
 
     public long getId() {
         return id;
@@ -17,20 +17,20 @@ public class ActorResponse {
         this.id = id;
     }
 
-    public String getFirstNameA() {
-        return firstNameA;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirstNameA(String firstNameA) {
-        this.firstNameA = firstNameA;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getLastNameA() {
-        return lastNameA;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLastNameA(String lastNameA) {
-        this.lastNameA = lastNameA;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public List<MovieInActorResponse> getMovies() {

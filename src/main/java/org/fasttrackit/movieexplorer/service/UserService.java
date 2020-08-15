@@ -10,8 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 public class UserService {
 
@@ -26,37 +24,20 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User createUser (SaveUserRequest request) {
+    public User createUser(SaveUserRequest request) {
         LOGGER.info("Creating user {}", request);
-
-//        User user = new User();
-//        user.setFirstName(request.getFirstName());
-//        user.setLastName(request.getLastName());
-//        user.setEmail(request.getEmail());
 
         User user = objectMapper.convertValue(request, User.class);
 
         return userRepository.save(user);
     }
 
-    public User getUser (long id) {
+    public User getUser(long id) {
         LOGGER.info("Retrieving user {}", id);
-
-//        Optional<User> user = userRepository.findById(id);
-//        if (user.isPresent()) {
-//            return user.get();
-//        } else throw new ResourceNotFoundException("User " + id + " not found.");
 
         return userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User" + id + "not found."));
     }
-
-
-
-
-
-
-
 
 
 }

@@ -1,6 +1,5 @@
 package org.fasttrackit.movieexplorer.service;
 
-
 import org.fasttrackit.movieexplorer.domain.Actor;
 import org.fasttrackit.movieexplorer.domain.Movie;
 import org.fasttrackit.movieexplorer.exception.ResourceNotFoundException;
@@ -8,8 +7,6 @@ import org.fasttrackit.movieexplorer.persistence.ActorRepository;
 import org.fasttrackit.movieexplorer.transfer.actor.ActorResponse;
 import org.fasttrackit.movieexplorer.transfer.actor.AddMovieToActorRequest;
 import org.fasttrackit.movieexplorer.transfer.actor.MovieInActorResponse;
-import org.fasttrackit.movieexplorer.transfer.category.CategoryResponse;
-import org.fasttrackit.movieexplorer.transfer.category.MovieInCategoryResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,8 +54,8 @@ public class ActorService {
 
         ActorResponse actorResponse = new ActorResponse();
         actorResponse.setId(actor.getId());
-        actorResponse.setFirstNameA(actor.getFirstNameA());
-        actorResponse.setLastNameA(actor.getLastNameA());
+        actorResponse.setFirstName(actor.getFirstName());
+        actorResponse.setLastName(actor.getLastName());
 
         List<MovieInActorResponse> movieDtos = new ArrayList<>();
 

@@ -26,7 +26,7 @@ public class Category {
         movie.getCategories().add(this);
     }
 
-    public void removeMovie (Movie movie) {
+    public void removeMovie(Movie movie) {
         movies.remove(movie);
         movie.getCategories().remove(this);
     }

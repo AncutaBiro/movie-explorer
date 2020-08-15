@@ -23,7 +23,7 @@ public class ActorController {
         this.actorService = actorService;
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{id}/movies")
     public ResponseEntity<Void> addMovieToActor (@PathVariable long id, @RequestBody @Valid AddMovieToActorRequest request) {
        actorService.addMovieToActor(id, request);
        return new ResponseEntity<>(HttpStatus.NO_CONTENT);

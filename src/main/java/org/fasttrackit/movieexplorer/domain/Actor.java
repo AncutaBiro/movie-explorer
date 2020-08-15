@@ -5,6 +5,7 @@ import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
+
 @Entity
 public class Actor {
 
@@ -13,10 +14,10 @@ public class Actor {
     private long id;
 
     @NotNull
-    private String firstNameA;
+    private String firstName;
 
     @NotNull
-    private String lastNameA;
+    private String lastName;
 
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "actor_movie",
@@ -24,12 +25,12 @@ public class Actor {
             inverseJoinColumns = @JoinColumn(name = "movie_id"))
     private Set<Movie> movies = new HashSet<>();
 
-    public void addMovie (Movie movie) {
+    public void addMovie(Movie movie) {
         movies.add(movie);
         movie.getActors().add(this);
     }
 
-    public void removeMovie (Movie movie) {
+    public void removeMovie(Movie movie) {
         movies.remove(movie);
         movie.getActors().remove(this);
     }
@@ -42,20 +43,20 @@ public class Actor {
         this.id = id;
     }
 
-    public String getFirstNameA() {
-        return firstNameA;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirstNameA(String firstNameA) {
-        this.firstNameA = firstNameA;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getLastNameA() {
-        return lastNameA;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLastNameA(String lastNameA) {
-        this.lastNameA = lastNameA;
+    public void setLastName (String lastName) {
+        this.lastName = lastName;
     }
 
     public Set<Movie> getMovies() {
@@ -70,8 +71,8 @@ public class Actor {
     public String toString() {
         return "Actor{" +
                 "id=" + id +
-                ", firstNameA='" + firstNameA + '\'' +
-                ", lastNameA='" + lastNameA + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
                 '}';
     }
 

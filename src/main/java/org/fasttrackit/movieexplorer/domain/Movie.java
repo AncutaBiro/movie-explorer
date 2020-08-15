@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
+
 @Entity
 public class Movie {
 
@@ -25,7 +26,7 @@ public class Movie {
     @ManyToMany(mappedBy = "movies")
     private Set<Category> categories = new HashSet<>();
 
-    @ManyToMany (mappedBy = "movies")
+    @ManyToMany(mappedBy = "movies")
     private Set<Actor> actors = new HashSet<>();
 
 

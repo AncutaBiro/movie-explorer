@@ -1,6 +1,5 @@
 package org.fasttrackit.movieexplorer.web;
 
-
 import org.fasttrackit.movieexplorer.service.RatingService;
 import org.fasttrackit.movieexplorer.transfer.rating.RatingResponse;
 import org.springframework.beans.factory.annotation.Autowired;

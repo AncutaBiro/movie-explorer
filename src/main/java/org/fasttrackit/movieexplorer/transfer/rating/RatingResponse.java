@@ -1,6 +1,5 @@
 package org.fasttrackit.movieexplorer.transfer.rating;
 
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 public class RatingResponse {

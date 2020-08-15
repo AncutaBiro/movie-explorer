@@ -18,11 +18,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.lang.reflect.Array;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -68,9 +65,9 @@ public class MovieService {
     }
 
     @Transactional
-    public Page<MovieResponse> getMoviesByRate (Pageable pageable) {
+    public Page<MovieResponse> getMoviesByRate(Pageable pageable) {
 
-        Page<Movie> page = movieRepository.findAllByOrderByRateDesc (pageable);
+        Page<Movie> page = movieRepository.findAllByOrderByRateDesc(pageable);
 
         List<MovieResponse> moviesDtos = new ArrayList<>();
 
@@ -128,7 +125,7 @@ public class MovieService {
         return movieResponse;
     }
 
-    private List<String> mapCategories (Set<Category> categories) {
+    private List<String> mapCategories(Set<Category> categories) {
         return categories.stream().map(Category::getGenre).collect(Collectors.toList());
     }
 }
