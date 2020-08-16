@@ -1,6 +1,5 @@
 package org.fasttrackit.movieexplorer.web;
 
-import org.fasttrackit.movieexplorer.domain.Movie;
 import org.fasttrackit.movieexplorer.service.MovieService;
 import org.fasttrackit.movieexplorer.transfer.movie.GetMoviesRequest;
 import org.fasttrackit.movieexplorer.transfer.movie.MovieResponse;
@@ -47,14 +46,14 @@ public class MovieController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<MovieResponse>> getMoviesBy(@Valid GetMoviesRequest request, Pageable pageable) {
-        Page<MovieResponse> movie = movieService.getMoviesBy(request, pageable);
+    public ResponseEntity<Page<MovieResponse>> getMoviesBy (@Valid GetMoviesRequest request, Pageable pageable) {
+        Page<MovieResponse> movie = movieService.getMoviesBy (request, pageable);
         return new ResponseEntity<>(movie, HttpStatus.OK);
     }
 
     @GetMapping("/byRate")
-    public ResponseEntity<Page<MovieResponse>> getMoviesByRate (Pageable pageable) {
-        Page<MovieResponse> movie = movieService.getMoviesByRate (pageable);
+    public ResponseEntity<Page<MovieResponse>> getMoviesByRate(Pageable pageable) {
+        Page<MovieResponse> movie = movieService.getMoviesByRate(pageable);
         return new ResponseEntity<>(movie, HttpStatus.OK);
     }
 
